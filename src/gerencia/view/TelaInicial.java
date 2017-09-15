@@ -2,6 +2,7 @@
 package gerencia.view;
 
 import gerencia.controller.ControladorInicial;
+import javax.swing.JOptionPane;
 
 public class TelaInicial extends javax.swing.JFrame {
 
@@ -98,4 +99,8 @@ public class TelaInicial extends javax.swing.JFrame {
     private javax.swing.JButton gerenciaBtn;
     private javax.swing.JPanel jPanel2;
     // End of variables declaration//GEN-END:variables
+
+    public void mostrarAvisoConfEstabelecimento() {
+        JOptionPane.showMessageDialog(rootPane, "É preciso configurar um Estabelecimento para continuar");
+    }
 }

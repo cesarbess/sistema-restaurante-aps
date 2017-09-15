@@ -22,10 +22,8 @@ public class TelaComandas extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         listaComandas = new javax.swing.JList<>();
         jPanel3 = new javax.swing.JPanel();
-        cancelarComandaBtn = new javax.swing.JButton();
         trocarStatusBtn = new javax.swing.JButton();
         trocarMesaBtn = new javax.swing.JButton();
-        editarComandaBtn = new javax.swing.JButton();
         enviarCozinhaBtn1 = new javax.swing.JButton();
         sairBtn = new javax.swing.JButton();
 
@@ -75,22 +73,11 @@ public class TelaComandas extends javax.swing.JFrame {
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Opções\n"));
 
-        cancelarComandaBtn.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
-        cancelarComandaBtn.setText("Cancelar comanda");
-
         trocarStatusBtn.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
         trocarStatusBtn.setText("Trocar Status");
 
         trocarMesaBtn.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
         trocarMesaBtn.setText("Trocar Mesa");
-
-        editarComandaBtn.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
-        editarComandaBtn.setText("Editar comanda");
-        editarComandaBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                editarComandaBtnActionPerformed(evt);
-            }
-        });
 
         enviarCozinhaBtn1.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
         enviarCozinhaBtn1.setText("Enviar a cozinha");
@@ -103,8 +90,6 @@ public class TelaComandas extends javax.swing.JFrame {
                 .addContainerGap(47, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(enviarCozinhaBtn1, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(editarComandaBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cancelarComandaBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(trocarStatusBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(trocarMesaBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(43, 43, 43))
@@ -112,17 +97,13 @@ public class TelaComandas extends javax.swing.JFrame {
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(28, 28, 28)
-                .addComponent(editarComandaBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(40, 40, 40)
                 .addComponent(enviarCozinhaBtn1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addComponent(trocarStatusBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(trocarMesaBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(cancelarComandaBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(31, Short.MAX_VALUE))
+                .addContainerGap(127, Short.MAX_VALUE))
         );
 
         sairBtn.setText("Sair");
@@ -203,15 +184,9 @@ public class TelaComandas extends javax.swing.JFrame {
         this.owner.sair();
     }//GEN-LAST:event_sairBtnActionPerformed
 
-    private void editarComandaBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editarComandaBtnActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_editarComandaBtnActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnComandas;
     private javax.swing.JButton btnMesas;
-    private javax.swing.JButton cancelarComandaBtn;
-    private javax.swing.JButton editarComandaBtn;
     private javax.swing.JButton enviarCozinhaBtn1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;

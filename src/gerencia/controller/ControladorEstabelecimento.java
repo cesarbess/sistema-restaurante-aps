@@ -1,6 +1,7 @@
 
 package gerencia.controller;
 
+import gerencia.model.Estabelecimento;
 import gerencia.view.TelaEstabelecimento;
 
 public class ControladorEstabelecimento {
@@ -8,6 +9,9 @@ public class ControladorEstabelecimento {
     private TelaEstabelecimento telaEstabelecimento;
     private ControladorCardapio controladorCardapio;
     private ControladorRelatorio controladorRelatorio;
+    private ControladorInicial controladorInicial;
+    
+    private Estabelecimento estabelecimento;
     
     public ControladorEstabelecimento(){
         this.telaEstabelecimento = new TelaEstabelecimento(this);
@@ -31,5 +35,17 @@ public class ControladorEstabelecimento {
 
     public void sair() {
         this.telaEstabelecimento.setVisible(false);
+        this.controladorInicial.abrirTela();
     }
+    
+    public void setControladorInicial(ControladorInicial controladorInicial){
+        this.controladorInicial = controladorInicial;
+    }
+
+    public void registrarEstabelecimento(String nome, Integer qntMesas) {
+        Estabelecimento estabelecimento = new Estabelecimento(nome, qntMesas);
+        this.controladorInicial.setEstabelecimento(estabelecimento);
+        this.telaEstabelecimento.mostrarConfirmacao(nome, qntMesas);
+    }
+    
 }

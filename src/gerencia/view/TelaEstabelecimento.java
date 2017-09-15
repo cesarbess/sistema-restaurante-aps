@@ -3,6 +3,8 @@ package gerencia.view;
 
 import gerencia.controller.ControladorEstabelecimento;
 import gerencia.controller.ControladorInicial;
+import gerencia.model.Estabelecimento;
+import javax.swing.JOptionPane;
 
 public class TelaEstabelecimento extends javax.swing.JFrame {
     
@@ -24,11 +26,11 @@ public class TelaEstabelecimento extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jSpinner1 = new javax.swing.JSpinner();
+        nomeTextField = new javax.swing.JTextField();
+        quantidadeMesasSpinner = new javax.swing.JSpinner();
         jPanel3 = new javax.swing.JPanel();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
+        salvarBtn = new javax.swing.JButton();
+        limparBtn = new javax.swing.JButton();
         sairBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -62,6 +64,9 @@ public class TelaEstabelecimento extends javax.swing.JFrame {
 
         jLabel2.setText("Quantidade de mesas:");
 
+        quantidadeMesasSpinner.setModel(new javax.swing.SpinnerNumberModel(1, 1, 50, 1));
+        quantidadeMesasSpinner.setFocusTraversalKeysEnabled(false);
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -72,11 +77,11 @@ public class TelaEstabelecimento extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jSpinner1))
+                        .addComponent(quantidadeMesasSpinner))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addGap(18, 18, 18)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(nomeTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -85,19 +90,29 @@ public class TelaEstabelecimento extends javax.swing.JFrame {
                 .addGap(50, 50, 50)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(nomeTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(quantidadeMesasSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Opções"));
 
-        jButton4.setText("Salvar");
+        salvarBtn.setText("Salvar");
+        salvarBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                salvarBtnActionPerformed(evt);
+            }
+        });
 
-        jButton5.setText("Limpar");
+        limparBtn.setText("Limpar");
+        limparBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                limparBtnActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -106,17 +121,17 @@ public class TelaEstabelecimento extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addContainerGap(47, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(limparBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(salvarBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(46, 46, 46))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(42, 42, 42)
-                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(limparBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(salvarBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(205, Short.MAX_VALUE))
         );
 
@@ -211,19 +226,37 @@ public class TelaEstabelecimento extends javax.swing.JFrame {
         owner.sair();
     }//GEN-LAST:event_sairBtnActionPerformed
 
+    private void salvarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salvarBtnActionPerformed
+        if (nomeTextField.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(rootPane, "Nome do estabelecimento não pode ser vazio");
+        } else {
+            owner.registrarEstabelecimento(nomeTextField.getText(), (Integer)quantidadeMesasSpinner.getValue());
+        }
+        
+    }//GEN-LAST:event_salvarBtnActionPerformed
+
+    private void limparBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_limparBtnActionPerformed
+        nomeTextField.setText("");
+        quantidadeMesasSpinner.setValue(0);
+    }//GEN-LAST:event_limparBtnActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cardapioBtn;
     private javax.swing.JButton estabelecimentoBtn;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JSpinner jSpinner1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JButton limparBtn;
+    private javax.swing.JTextField nomeTextField;
+    private javax.swing.JSpinner quantidadeMesasSpinner;
     private javax.swing.JButton relatorioBtn;
     private javax.swing.JButton sairBtn;
+    private javax.swing.JButton salvarBtn;
     // End of variables declaration//GEN-END:variables
+
+    public void mostrarConfirmacao(String nome, Integer qntMesas) {
+        JOptionPane.showMessageDialog(rootPane, "Foi configurado o Estabelecimento: " + nome + " Com " + qntMesas + " mesas");
+    }
 }

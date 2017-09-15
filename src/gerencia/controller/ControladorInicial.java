@@ -2,6 +2,7 @@
 package gerencia.controller;
 
 import atendimento.controller.ControladorMesas;
+import gerencia.model.Estabelecimento;
 import gerencia.view.TelaEstabelecimento;
 import gerencia.view.TelaInicial;
 
@@ -10,6 +11,8 @@ public class ControladorInicial {
     private TelaInicial telaInicial;
     private ControladorEstabelecimento controladorEstabelecimento;
     private ControladorMesas controladorMesas;
+    
+    private Estabelecimento estabelecimento;
     
     public ControladorInicial(TelaInicial telaInicial){
         this.telaInicial = telaInicial;
@@ -49,6 +52,8 @@ public class ControladorInicial {
 
     public void entrarTelaGerencia() {
         controladorEstabelecimento = new ControladorEstabelecimento();
+        controladorEstabelecimento.setControladorInicial(this);
+        telaInicial.setVisible(false);
         controladorEstabelecimento.abrirTela();
     }
 
@@ -57,7 +62,17 @@ public class ControladorInicial {
     }
 
     public void entrarTelaAtendimento() {
-        controladorMesas = new ControladorMesas();
-        controladorMesas.abrirTela();
+        if (this.estabelecimento == null) {
+            telaInicial.mostrarAvisoConfEstabelecimento();
+        } else {
+            controladorMesas = new ControladorMesas(estabelecimento);
+            controladorMesas.abrirTela();
+        }
     }
+    
+    public void setEstabelecimento(Estabelecimento estabelecimento){
+        this.estabelecimento = estabelecimento;
+    }
+    
+    
 }

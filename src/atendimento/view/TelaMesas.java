@@ -2,14 +2,22 @@
 package atendimento.view;
 
 import atendimento.controller.ControladorMesas;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.GridLayout;
+import javax.swing.JButton;
 
 public class TelaMesas extends javax.swing.JFrame {
 
     private ControladorMesas owner;
     
-    public TelaMesas(ControladorMesas owner) {
+    public TelaMesas(ControladorMesas owner, int numeroMesas) {
         initComponents();
         this.owner = owner;
+        int linhas = Math.round(numeroMesas/3);
+        GridLayout layout = new GridLayout(linhas, 3);
+        mesasPanel.setLayout(layout);
+        inicializarMesas(numeroMesas);
     }
     
     @SuppressWarnings("unchecked")
@@ -19,13 +27,7 @@ public class TelaMesas extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         btnMesas = new javax.swing.JButton();
         btnComandas = new javax.swing.JButton();
-        jPanel2 = new javax.swing.JPanel();
-        jButton8 = new javax.swing.JButton();
-        jButton9 = new javax.swing.JButton();
-        jButton10 = new javax.swing.JButton();
-        jButton17 = new javax.swing.JButton();
-        jButton18 = new javax.swing.JButton();
-        jButton19 = new javax.swing.JButton();
+        mesasPanel = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         btnCriarComanda = new javax.swing.JButton();
         btnOcuparMesa = new javax.swing.JButton();
@@ -50,63 +52,17 @@ public class TelaMesas extends javax.swing.JFrame {
             }
         });
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Mesas"));
+        mesasPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Mesas"));
 
-        jButton8.setForeground(new java.awt.Color(0, 153, 0));
-        jButton8.setText("Mesa 2");
-
-        jButton9.setBackground(new java.awt.Color(51, 204, 0));
-        jButton9.setForeground(new java.awt.Color(0, 153, 0));
-        jButton9.setText("Mesa 1");
-
-        jButton10.setForeground(new java.awt.Color(0, 153, 51));
-        jButton10.setText("Mesa 3");
-
-        jButton17.setForeground(new java.awt.Color(0, 153, 51));
-        jButton17.setText("Mesa 6");
-
-        jButton18.setForeground(new java.awt.Color(0, 153, 0));
-        jButton18.setText("Mesa 5");
-
-        jButton19.setBackground(new java.awt.Color(51, 204, 0));
-        jButton19.setForeground(new java.awt.Color(0, 153, 0));
-        jButton19.setText("Mesa 4");
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jButton19, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton18, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton17, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(18, Short.MAX_VALUE))
+        javax.swing.GroupLayout mesasPanelLayout = new javax.swing.GroupLayout(mesasPanel);
+        mesasPanel.setLayout(mesasPanelLayout);
+        mesasPanelLayout.setHorizontalGroup(
+            mesasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 387, Short.MAX_VALUE)
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton18, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton17, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton19, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(124, Short.MAX_VALUE))
+        mesasPanelLayout.setVerticalGroup(
+            mesasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Opções\n"));
@@ -115,7 +71,7 @@ public class TelaMesas extends javax.swing.JFrame {
 
         btnOcuparMesa.setText("Ocupar Mesa");
 
-        btnCancelarComanda.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
+        btnCancelarComanda.setFont(new java.awt.Font("Lucida Grande", 0, 10)); // NOI18N
         btnCancelarComanda.setText("Cancelar comanda");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -139,7 +95,7 @@ public class TelaMesas extends javax.swing.JFrame {
                 .addComponent(btnCriarComanda, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnCancelarComanda, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(141, Short.MAX_VALUE))
         );
 
         btnSair.setText("Sair");
@@ -156,18 +112,17 @@ public class TelaMesas extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(mesasPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(btnMesas, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btnComandas, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(21, 21, 21))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnSair)
                         .addContainerGap())))
         );
@@ -183,8 +138,8 @@ public class TelaMesas extends javax.swing.JFrame {
                     .addComponent(btnSair))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(mesasPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -209,7 +164,7 @@ public class TelaMesas extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnMesasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMesasActionPerformed
-        // TODO add your handling code here:
+        // TODO add youmesasPaneling code here:
     }//GEN-LAST:event_btnMesasActionPerformed
 
     private void btnComandasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnComandasActionPerformed
@@ -228,14 +183,19 @@ public class TelaMesas extends javax.swing.JFrame {
     private javax.swing.JButton btnMesas;
     private javax.swing.JButton btnOcuparMesa;
     private javax.swing.JButton btnSair;
-    private javax.swing.JButton jButton10;
-    private javax.swing.JButton jButton17;
-    private javax.swing.JButton jButton18;
-    private javax.swing.JButton jButton19;
-    private javax.swing.JButton jButton8;
-    private javax.swing.JButton jButton9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel mesasPanel;
     // End of variables declaration//GEN-END:variables
+
+    private void inicializarMesas(int numeroMesas) {
+        for(int i = 0; i < numeroMesas; i++) {
+            JButton button = new JButton("Mesa " + (i+1));
+            button.setSize(113, 85);
+            button.setBackground(Color.green);
+            mesasPanel.add(button);
+        }
+        mesasPanel.revalidate();
+        mesasPanel.repaint();
+    }
 }
