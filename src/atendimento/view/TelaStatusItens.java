@@ -16,6 +16,7 @@ public class TelaStatusItens extends javax.swing.JFrame {
      */
     public TelaStatusItens() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     /**

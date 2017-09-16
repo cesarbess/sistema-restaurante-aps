@@ -9,6 +9,7 @@ public class TelaComandas extends javax.swing.JFrame {
     
     public TelaComandas(ControladorComandas owner) {
         initComponents();
+        this.setLocationRelativeTo(null);
         this.owner = owner;
     }
     @SuppressWarnings("unchecked")

@@ -1,21 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package atendimento.view;
 
-/**
- *
- * @author Cesar
- */
 public class TelaGerirComanda extends javax.swing.JFrame {
 
-    /**
-     * Creates new form TelaGerirComanda
-     */
     public TelaGerirComanda() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     /**

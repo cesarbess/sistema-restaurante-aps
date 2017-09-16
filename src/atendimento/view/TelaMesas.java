@@ -13,6 +13,7 @@ public class TelaMesas extends javax.swing.JFrame {
     
     public TelaMesas(ControladorMesas owner, int numeroMesas) {
         initComponents();
+        this.setLocationRelativeTo(null);
         this.owner = owner;
         int linhas = Math.round(numeroMesas/3);
         GridLayout layout = new GridLayout(linhas, 3);

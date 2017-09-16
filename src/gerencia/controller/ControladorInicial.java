@@ -73,6 +73,5 @@ public class ControladorInicial {
     public void setEstabelecimento(Estabelecimento estabelecimento){
         this.estabelecimento = estabelecimento;
     }
-    
-    
+   
 }

@@ -9,6 +9,7 @@ public class TelaCardapio extends javax.swing.JFrame {
     
     public TelaCardapio(ControladorCardapio owner) {
         initComponents();
+        this.setLocationRelativeTo(null);
         this.owner = owner;
     }
 

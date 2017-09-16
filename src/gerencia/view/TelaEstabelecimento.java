@@ -12,6 +12,7 @@ public class TelaEstabelecimento extends javax.swing.JFrame {
     
     public TelaEstabelecimento(ControladorEstabelecimento owner) {
         initComponents();
+        this.setLocationRelativeTo(null);
         this.owner = owner;
     }
 

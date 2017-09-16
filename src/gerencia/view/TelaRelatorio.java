@@ -10,6 +10,7 @@ public class TelaRelatorio extends javax.swing.JFrame {
     public TelaRelatorio(ControladorRelatorio owner) {
         this.owner = owner;
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     @SuppressWarnings("unchecked")
