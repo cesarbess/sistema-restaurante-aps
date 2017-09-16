@@ -18,19 +18,22 @@ public class ControladorEstabelecimento {
     }
 
     public void abrirTelaRelatorio() {
-        this.controladorRelatorio = new ControladorRelatorio();
-        this.telaEstabelecimento.setVisible(false);
-        this.controladorRelatorio.abrirTela();
+//        this.controladorRelatorio = new ControladorRelatorio();
+//        this.telaEstabelecimento.setVisible(false);
+//        this.controladorRelatorio.abrirTela();
     }
 
     public void abrirTelaCardapio() {
-        this.controladorCardapio = new ControladorCardapio();
-        this.telaEstabelecimento.setVisible(false);
-        this.controladorCardapio.abrirTela();
+//        this.controladorCardapio = new ControladorCardapio();
+//        this.telaEstabelecimento.setVisible(false);
+//        this.controladorCardapio.abrirTela();
     }
 
     public void abrirTela() {
         this.telaEstabelecimento.setVisible(true);
+        if (estabelecimento != null){
+            telaEstabelecimento.popularCampos(estabelecimento.getNome(), estabelecimento.getQuantidadeMesas());
+        }
     }
 
     public void sair() {
@@ -43,7 +46,7 @@ public class ControladorEstabelecimento {
     }
 
     public void registrarEstabelecimento(String nome, Integer qntMesas) {
-        Estabelecimento estabelecimento = new Estabelecimento(nome, qntMesas);
+        this.estabelecimento = new Estabelecimento(nome, qntMesas);
         this.controladorInicial.setEstabelecimento(estabelecimento);
         this.telaEstabelecimento.mostrarConfirmacao(nome, qntMesas);
     }

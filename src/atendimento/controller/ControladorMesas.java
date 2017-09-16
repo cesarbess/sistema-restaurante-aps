@@ -27,9 +27,9 @@ public class ControladorMesas {
     }
 
     public void abrirTelaComandas() {
-        this.controladorComandas = new ControladorComandas();
-        telaMesas.setVisible(false);
-        this.controladorComandas.abrirTela();
+//        this.controladorComandas = new ControladorComandas();
+//        telaMesas.setVisible(false);
+//        this.controladorComandas.abrirTela();
     }
 
     public void sair() {

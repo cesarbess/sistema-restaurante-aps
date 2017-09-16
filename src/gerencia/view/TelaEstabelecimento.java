@@ -260,4 +260,9 @@ public class TelaEstabelecimento extends javax.swing.JFrame {
     public void mostrarConfirmacao(String nome, Integer qntMesas) {
         JOptionPane.showMessageDialog(rootPane, "Foi configurado o Estabelecimento: " + nome + " Com " + qntMesas + " mesas");
     }
+
+    public void popularCampos(String nome, int quantidadeMesas) {
+        nomeTextField.setText(nome);
+        quantidadeMesasSpinner.setValue(quantidadeMesas);
+    }
 }
