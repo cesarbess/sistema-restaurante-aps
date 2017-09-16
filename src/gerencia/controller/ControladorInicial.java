@@ -51,8 +51,10 @@ public class ControladorInicial {
     }
 
     public void entrarTelaGerencia() {
-        controladorEstabelecimento = new ControladorEstabelecimento();
-        controladorEstabelecimento.setControladorInicial(this);
+        if (estabelecimento == null){
+            controladorEstabelecimento = new ControladorEstabelecimento(this);
+        }
+        
         telaInicial.setVisible(false);
         controladorEstabelecimento.abrirTela();
     }

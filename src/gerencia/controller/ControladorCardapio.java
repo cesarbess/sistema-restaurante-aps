@@ -8,28 +8,40 @@ public class ControladorCardapio {
     private TelaCardapio telaCardapio;
     private ControladorRelatorio controladorRelatorio;
     private ControladorEstabelecimento controladorEstabelecimento;
+    private ControladorInicial controladorInicial;
     
     public ControladorCardapio(){
-        this.telaCardapio = new TelaCardapio(this); 
+        telaCardapio = new TelaCardapio(this); 
     }
 
     public void abrirTela() {
-        this.telaCardapio.setVisible(true);
+        telaCardapio.setVisible(true);
     }
 
     public void abrirTelaRelatorio() {
-        this.controladorRelatorio = new ControladorRelatorio();
-        this.telaCardapio.setVisible(false);
-        this.controladorRelatorio.abrirTela();
+        telaCardapio.setVisible(false);
+        controladorRelatorio.abrirTela();
     }
 
     public void abrirTelaEstabelecimento() {
-        this.controladorEstabelecimento = new ControladorEstabelecimento();
-        this.telaCardapio.setVisible(false);
-        this.controladorEstabelecimento.abrirTela();
+        telaCardapio.setVisible(false);
+        controladorEstabelecimento.abrirTela();
     }
 
     public void sair() {
         this.telaCardapio.setVisible(false);
+        controladorInicial.abrirTela();
+    }
+    
+    public void setControladorInicial(ControladorInicial controladorInicial){
+        this.controladorInicial = controladorInicial;
+    }
+
+    public void setControladorEstabelecimento(ControladorEstabelecimento controladorEstabelecimento) {
+        this.controladorEstabelecimento = controladorEstabelecimento;
+    }
+
+    public void setControladorRelatorio(ControladorRelatorio controladorRelatorio) {
+        this.controladorRelatorio = controladorRelatorio;
     }
 }
