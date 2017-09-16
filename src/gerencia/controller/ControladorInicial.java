@@ -67,7 +67,8 @@ public class ControladorInicial {
         if (this.estabelecimento == null) {
             telaInicial.mostrarAvisoConfEstabelecimento();
         } else {
-            controladorMesas = new ControladorMesas(estabelecimento);
+            controladorMesas = new ControladorMesas(this, estabelecimento);
+            telaInicial.setVisible(false);
             controladorMesas.abrirTela();
         }
     }

@@ -61,9 +61,9 @@ public class TelaEstabelecimento extends javax.swing.JFrame {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Configurar Estabelecimento"));
 
-        jLabel1.setText("Nome:");
+        jLabel1.setText("* Nome:");
 
-        jLabel2.setText("Quantidade de mesas:");
+        jLabel2.setText("* Quantidade de mesas:");
 
         quantidadeMesasSpinner.setModel(new javax.swing.SpinnerNumberModel(1, 1, 50, 1));
         quantidadeMesasSpinner.setFocusTraversalKeysEnabled(false);

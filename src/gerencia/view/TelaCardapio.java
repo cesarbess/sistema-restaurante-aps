@@ -41,6 +41,7 @@ public class TelaCardapio extends javax.swing.JFrame {
             }
         });
 
+        btnEstabelecimento.setFont(new java.awt.Font("Lucida Grande", 0, 10)); // NOI18N
         btnEstabelecimento.setText("Estabelecimento");
         btnEstabelecimento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -85,6 +86,7 @@ public class TelaCardapio extends javax.swing.JFrame {
 
         btnEditar.setText("Editar");
 
+        btnAdicionarNovo.setFont(new java.awt.Font("Lucida Grande", 0, 10)); // NOI18N
         btnAdicionarNovo.setText("Adicionar novo");
 
         btnRemover.setText("Remover");
@@ -107,7 +109,7 @@ public class TelaCardapio extends javax.swing.JFrame {
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(21, Short.MAX_VALUE)
+                .addContainerGap(20, Short.MAX_VALUE)
                 .addComponent(btnAdicionarNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnRemover, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
