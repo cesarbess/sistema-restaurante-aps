@@ -2,13 +2,13 @@
 package atendimento.controller;
 
 import atendimento.view.TelaComandas;
-import gerencia.controller.ControladorInicial;
+import gerencia.controller.ControladorPrincipal;
 
 public class ControladorComandas {
 
     private TelaComandas telaComandas;
     private ControladorMesas controladorMesas;
-    private ControladorInicial controladorInicial;
+    private ControladorPrincipal controladorInicial;
     
     public ControladorComandas(){
         this.telaComandas = new TelaComandas(this);
@@ -32,7 +32,7 @@ public class ControladorComandas {
         this.controladorMesas = controladorMesas;
     }
 
-    public void setControladorInicial(ControladorInicial controladorInicial) {
+    public void setControladorInicial(ControladorPrincipal controladorInicial) {
         this.controladorInicial = controladorInicial;
     }
             

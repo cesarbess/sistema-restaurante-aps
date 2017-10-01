@@ -2,7 +2,7 @@
 package gerencia.view;
 
 import gerencia.controller.ControladorEstabelecimento;
-import gerencia.controller.ControladorInicial;
+import gerencia.controller.ControladorPrincipal;
 import gerencia.model.Estabelecimento;
 import javax.swing.JOptionPane;
 
@@ -212,7 +212,11 @@ public class TelaEstabelecimento extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void relatorioBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_relatorioBtnActionPerformed
-        owner.abrirTelaRelatorio();
+        if (owner.PossuiEstabelecimentoConfigurado()){
+            owner.abrirTelaRelatorio();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Configure um estabelecimento primeiro");
+        }
     }//GEN-LAST:event_relatorioBtnActionPerformed
 
     private void estabelecimentoBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_estabelecimentoBtnActionPerformed
@@ -220,7 +224,11 @@ public class TelaEstabelecimento extends javax.swing.JFrame {
     }//GEN-LAST:event_estabelecimentoBtnActionPerformed
 
     private void cardapioBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cardapioBtnActionPerformed
-        owner.abrirTelaCardapio();
+        if (owner.PossuiEstabelecimentoConfigurado()){
+            owner.abrirTelaCardapio();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Configure um estabelecimento primeiro");
+        }
     }//GEN-LAST:event_cardapioBtnActionPerformed
 
     private void sairBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sairBtnActionPerformed

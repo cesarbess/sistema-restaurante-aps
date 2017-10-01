@@ -1,17 +1,17 @@
 
 package gerencia.view;
 
-import gerencia.controller.ControladorInicial;
+import gerencia.controller.ControladorPrincipal;
 import javax.swing.JOptionPane;
 
 public class TelaInicial extends javax.swing.JFrame {
 
-    private ControladorInicial owner;
+    private ControladorPrincipal owner;
     
     public TelaInicial() {
         initComponents();
         this.setLocationRelativeTo(null);
-        this.owner = new ControladorInicial(this);
+        this.owner = new ControladorPrincipal(this);
     }
 
     @SuppressWarnings("unchecked")

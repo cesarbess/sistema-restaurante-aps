@@ -5,6 +5,7 @@ public class Estabelecimento {
 
     private String nome;
     private int quantidadeMesas;
+    private Cardapio cardapio;
     
     public Estabelecimento(String nome, int quantidadeMesas) {
         this.nome = nome;
@@ -25,6 +26,14 @@ public class Estabelecimento {
 
     public void setQuantidadeMesas(int quantidadeMesas) {
         this.quantidadeMesas = quantidadeMesas;
+    }
+
+    public Cardapio getCardapio() {
+        return cardapio;
+    }
+
+    public void setCardapio(Cardapio cardapio) {
+        this.cardapio = cardapio;
     }
     
     

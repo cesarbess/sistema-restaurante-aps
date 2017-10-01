@@ -3,7 +3,7 @@ package atendimento.controller;
 
 import atendimento.view.TelaMesas;
 import gerencia.controller.ControladorCardapio;
-import gerencia.controller.ControladorInicial;
+import gerencia.controller.ControladorPrincipal;
 import gerencia.model.Estabelecimento;
 
 public class ControladorMesas {
@@ -11,7 +11,7 @@ public class ControladorMesas {
     private TelaMesas telaMesas;
     private ControladorComandas controladorComandas;
     private ControladorCardapio controladorCardapio;
-    private ControladorInicial controladorInicial;
+    private ControladorPrincipal controladorInicial;
     
     private Estabelecimento estabelecimento;
     
@@ -19,7 +19,7 @@ public class ControladorMesas {
         this.telaMesas = new TelaMesas(this, this.estabelecimento.getQuantidadeMesas());
     }
    
-    public ControladorMesas(ControladorInicial controladorInicial, Estabelecimento estabelecimento) {
+    public ControladorMesas(ControladorPrincipal controladorInicial, Estabelecimento estabelecimento) {
         this.estabelecimento = estabelecimento;
         this.controladorInicial = controladorInicial;
         this.telaMesas = new TelaMesas(this, this.estabelecimento.getQuantidadeMesas());

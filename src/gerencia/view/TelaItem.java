@@ -1,11 +1,20 @@
 
 package gerencia.view;
 
+import gerencia.controller.ControladorCardapio;
+import javax.swing.JOptionPane;
+
 public class TelaItem extends javax.swing.JFrame {
 
-    public TelaItem() {
+    private ControladorCardapio owner;
+    private boolean modoEdicao;
+    private int indiceItemSelecionado;
+
+    public TelaItem(ControladorCardapio owner) {
         initComponents();
         this.setLocationRelativeTo(null);
+        this.owner = owner;
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
 
     /**
@@ -19,10 +28,11 @@ public class TelaItem extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jCheckBox1 = new javax.swing.JCheckBox();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        nomeTextField = new javax.swing.JTextField();
+        exigePreparoCheckBox = new javax.swing.JCheckBox();
+        cancelarBtn = new javax.swing.JButton();
+        salvarBtn = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -30,30 +40,45 @@ public class TelaItem extends javax.swing.JFrame {
 
         jLabel1.setText("Nome:");
 
-        jCheckBox1.setText("Exige preparo");
+        exigePreparoCheckBox.setText("Exige preparo");
 
-        jButton1.setText("Cancelar");
+        cancelarBtn.setText("Cancelar");
+        cancelarBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cancelarBtnActionPerformed(evt);
+            }
+        });
 
-        jButton2.setText("Salvar");
+        salvarBtn.setText("Salvar");
+        salvarBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                salvarBtnActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setText("*");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(33, 33, 33)
+                .addContainerGap(15, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(salvarBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton1))
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addComponent(jLabel1)
-                            .addGap(18, 18, 18)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(jCheckBox1)))
-                .addContainerGap(74, Short.MAX_VALUE))
+                        .addComponent(cancelarBtn))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addGap(18, 18, 18)
+                                .addComponent(nomeTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(exigePreparoCheckBox))))
+                .addGap(80, 80, 80))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -61,13 +86,14 @@ public class TelaItem extends javax.swing.JFrame {
                 .addGap(33, 33, 33)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(nomeTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
                 .addGap(18, 18, 18)
-                .addComponent(jCheckBox1)
+                .addComponent(exigePreparoCheckBox)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
+                    .addComponent(cancelarBtn)
+                    .addComponent(salvarBtn))
                 .addGap(62, 62, 62))
         );
 
@@ -91,13 +117,53 @@ public class TelaItem extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void salvarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salvarBtnActionPerformed
+        if (nomeTextField.getText().isEmpty()){
+            JOptionPane.showMessageDialog(rootPane, "Nome não pode ficar em branco");
+        } else if (owner.JaPossuiItemComEsteNomeNoCardapio(nomeTextField.getText()) && !modoEdicao){
+            JOptionPane.showMessageDialog(rootPane, "Já possui um item no cardápio com este nome, escolha a opção de editar para editá-lo");
+            zerarCamposDeTexto();
+        } else if (modoEdicao){
+            owner.editarItem(indiceItemSelecionado, nomeTextField.getText(), exigePreparoCheckBox.isSelected());
+            zerarCamposDeTexto();
+            setVisible(false);
+        } else {
+            owner.adicionarItemCardapio(nomeTextField.getText(), exigePreparoCheckBox.isSelected());
+            zerarCamposDeTexto();
+            setVisible(false);
+        }
+    }//GEN-LAST:event_salvarBtnActionPerformed
 
+    private void cancelarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarBtnActionPerformed
+        zerarCamposDeTexto();
+        this.setVisible(false);
+    }//GEN-LAST:event_cancelarBtnActionPerformed
+
+
+    private void zerarCamposDeTexto() {
+        nomeTextField.setText("");
+        exigePreparoCheckBox.setSelected(false);
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JCheckBox jCheckBox1;
+    private javax.swing.JButton cancelarBtn;
+    private javax.swing.JCheckBox exigePreparoCheckBox;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField nomeTextField;
+    private javax.swing.JButton salvarBtn;
     // End of variables declaration//GEN-END:variables
+
+    public void setModoEdicao(boolean modoEdicao) {
+        this.modoEdicao = modoEdicao;
+    }
+
+    public void setIndiceItemSelecionado(int indiceItemSelecionado) {
+        this.indiceItemSelecionado = indiceItemSelecionado;
+    }
+
+    public void setItemEditavel(String descricao, boolean exigePreparo) {
+        nomeTextField.setText(descricao);
+        exigePreparoCheckBox.setSelected(exigePreparo);
+    }
 }

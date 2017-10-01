@@ -2,6 +2,9 @@
 package gerencia.view;
 
 import gerencia.controller.ControladorCardapio;
+import java.util.ArrayList;
+import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
 
 public class TelaCardapio extends javax.swing.JFrame {
     
@@ -85,11 +88,26 @@ public class TelaCardapio extends javax.swing.JFrame {
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Opções\n"));
 
         btnEditar.setText("Editar");
+        btnEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarActionPerformed(evt);
+            }
+        });
 
         btnAdicionarNovo.setFont(new java.awt.Font("Lucida Grande", 0, 10)); // NOI18N
         btnAdicionarNovo.setText("Adicionar novo");
+        btnAdicionarNovo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAdicionarNovoActionPerformed(evt);
+            }
+        });
 
         btnRemover.setText("Remover");
+        btnRemover.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRemoverActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -206,6 +224,29 @@ public class TelaCardapio extends javax.swing.JFrame {
         owner.sair();
     }//GEN-LAST:event_btnSairActionPerformed
 
+    private void btnAdicionarNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarNovoActionPerformed
+        owner.abrirTelaItemAdicionar();
+    }//GEN-LAST:event_btnAdicionarNovoActionPerformed
+
+    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+        if (listaCardapio.isSelectionEmpty()){
+            JOptionPane.showMessageDialog(rootPane,  "Selecione um item para editar");
+        } else {
+          owner.abrirTelaItemEditar(listaCardapio.getSelectedIndex());   
+        }
+    }//GEN-LAST:event_btnEditarActionPerformed
+
+    private void btnRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverActionPerformed
+        if (listaCardapio.isSelectionEmpty()){
+            JOptionPane.showMessageDialog(rootPane,  "Selecione um item para remover");
+        } else {
+            owner.removerItem(listaCardapio.getSelectedIndex());
+        }
+    }//GEN-LAST:event_btnRemoverActionPerformed
+
+    public void setarModeloLista(DefaultListModel model){;
+        this.listaCardapio.setModel(model);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdicionarNovo;

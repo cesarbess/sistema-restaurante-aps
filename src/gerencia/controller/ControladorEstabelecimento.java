@@ -1,6 +1,7 @@
 
 package gerencia.controller;
 
+import gerencia.model.Cardapio;
 import gerencia.model.Estabelecimento;
 import gerencia.view.TelaEstabelecimento;
 
@@ -9,12 +10,12 @@ public class ControladorEstabelecimento {
     private TelaEstabelecimento telaEstabelecimento;
     private ControladorCardapio controladorCardapio;
     private ControladorRelatorio controladorRelatorio;
-    private ControladorInicial controladorInicial;
+    private ControladorPrincipal controladorPrincipal;
     
     private Estabelecimento estabelecimento;
    
-    public ControladorEstabelecimento(ControladorInicial controladorInicial) {
-        this.controladorInicial = controladorInicial;
+    public ControladorEstabelecimento(ControladorPrincipal controladorInicial) {
+        this.controladorPrincipal = controladorInicial;
         telaEstabelecimento = new TelaEstabelecimento(this);
         configurarControladores();
     }
@@ -38,16 +39,17 @@ public class ControladorEstabelecimento {
 
     public void sair() {
         this.telaEstabelecimento.setVisible(false);
-        this.controladorInicial.abrirTela();
+        this.controladorPrincipal.abrirTela();
     }
     
-    public void setControladorInicial(ControladorInicial controladorInicial){
-        this.controladorInicial = controladorInicial;
+    public void setControladorInicial(ControladorPrincipal controladorInicial){
+        this.controladorPrincipal = controladorInicial;
     }
 
     public void registrarEstabelecimento(String nome, Integer qntMesas) {
         this.estabelecimento = new Estabelecimento(nome, qntMesas);
-        this.controladorInicial.setEstabelecimento(estabelecimento);
+        this.estabelecimento.setCardapio(new Cardapio());
+        this.controladorPrincipal.setEstabelecimento(estabelecimento);
         this.telaEstabelecimento.mostrarConfirmacao(nome, qntMesas);
     }
 
@@ -58,14 +60,18 @@ public class ControladorEstabelecimento {
     private void configurarControladores() {
         controladorCardapio = new ControladorCardapio();
         controladorCardapio.setControladorEstabelecimento(this);
-        controladorCardapio.setControladorInicial(controladorInicial);
+        controladorCardapio.setControladorInicial(controladorPrincipal);
         
         controladorRelatorio = new ControladorRelatorio();
         controladorRelatorio.setControladorEstabelecimento(this);
-        controladorRelatorio.setControladorInicial(controladorInicial);
+        controladorRelatorio.setControladorInicial(controladorPrincipal);
         
         controladorCardapio.setControladorRelatorio(controladorRelatorio);
         controladorRelatorio.setControladorCardapio(controladorCardapio);    
+    }
+
+    public boolean PossuiEstabelecimentoConfigurado() {
+        return this.estabelecimento != null;
     }
     
 }
