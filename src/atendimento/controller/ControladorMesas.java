@@ -5,13 +5,14 @@ import atendimento.view.TelaMesas;
 import gerencia.controller.ControladorCardapio;
 import gerencia.controller.ControladorPrincipal;
 import gerencia.model.Estabelecimento;
+import gerencia.model.Mesa;
 
 public class ControladorMesas {
     
     private TelaMesas telaMesas;
     private ControladorComandas controladorComandas;
     private ControladorCardapio controladorCardapio;
-    private ControladorPrincipal controladorInicial;
+    private ControladorPrincipal controladorPrincipal;
     
     private Estabelecimento estabelecimento;
     
@@ -21,7 +22,7 @@ public class ControladorMesas {
    
     public ControladorMesas(ControladorPrincipal controladorInicial, Estabelecimento estabelecimento) {
         this.estabelecimento = estabelecimento;
-        this.controladorInicial = controladorInicial;
+        this.controladorPrincipal = controladorInicial;
         this.telaMesas = new TelaMesas(this, this.estabelecimento.getQuantidadeMesas());
         configurarControlador();
     }
@@ -37,7 +38,7 @@ public class ControladorMesas {
 
     public void sair() {
         telaMesas.setVisible(false);
-        this.controladorInicial.abrirTela();
+        this.controladorPrincipal.abrirTela();
     }
 
     public void setEstabelecimento(Estabelecimento estabelecimento) {
@@ -47,6 +48,43 @@ public class ControladorMesas {
     private void configurarControlador() {
         controladorComandas = new ControladorComandas();
         controladorComandas.setControladorMesas(this);
-        controladorComandas.setControladorInicial(controladorInicial);
+        controladorComandas.setControladorInicial(controladorPrincipal);
+    }
+
+    public boolean mesaLivre(Integer idMesa) {
+        Estabelecimento estabelecimento = controladorPrincipal.getEstabelecimento();
+        for(Mesa mesa : estabelecimento.getMesas()){
+           if(mesa.getId().equals(idMesa) && !mesa.isEstaLivre()){
+               return false;
+           } 
+        }
+        return true;
+    }
+
+    public boolean ocuparMesa(int idMesa) {
+        Estabelecimento estabelecimento = controladorPrincipal.getEstabelecimento();
+        for(Mesa mesa : estabelecimento.getMesas()){
+           if(mesa.getId().equals(idMesa) && mesa.isEstaLivre()){
+               mesa.setEstaLivre(false);
+               return true;
+           } else if (mesa.getId().equals(idMesa) && !mesa.isEstaLivre()){
+               return false;
+           }
+        }
+        return false;
+    }
+
+    public boolean liberarMesa(int idMesa) {
+        Estabelecimento estabelecimento = controladorPrincipal.getEstabelecimento();
+        for(Mesa mesa : estabelecimento.getMesas()){
+           if(mesa.getId().equals(idMesa) && !mesa.isEstaLivre()){
+               //TODO checar se comanda esta ativa
+               mesa.setEstaLivre(true);
+               return true;
+           } else if (mesa.getId().equals(idMesa) && mesa.isEstaLivre()){
+               return false;
+           }
+        }
+        return false;
     }
 }

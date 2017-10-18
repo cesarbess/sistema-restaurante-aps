@@ -1,15 +1,24 @@
 
 package gerencia.model;
 
+import java.util.ArrayList;
+
 public class Estabelecimento {
 
     private String nome;
     private int quantidadeMesas;
     private Cardapio cardapio;
+    private ArrayList<Mesa> mesas;
     
     public Estabelecimento(String nome, int quantidadeMesas) {
         this.nome = nome;
         this.quantidadeMesas = quantidadeMesas;
+        mesas = new ArrayList<>();
+        for(int i = 0; i < quantidadeMesas; i++){
+            Mesa mesa = new Mesa(i+1);
+            mesas.add(mesa);
+            System.out.println("Mesa com ID: " + mesa.getId() + "adicionada no array de mesas");
+        }
     }
 
     public String getNome() {
@@ -36,5 +45,8 @@ public class Estabelecimento {
         this.cardapio = cardapio;
     }
     
-    
+    public ArrayList<Mesa> getMesas() {
+        return mesas;
+    }
+
 }

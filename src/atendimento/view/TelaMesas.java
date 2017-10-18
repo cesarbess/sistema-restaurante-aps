@@ -5,20 +5,33 @@ import atendimento.controller.ControladorMesas;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 
 public class TelaMesas extends javax.swing.JFrame {
 
     private ControladorMesas owner;
+    private ArrayList<JButton> botoesMesa;
     
     public TelaMesas(ControladorMesas owner, int numeroMesas) {
         initComponents();
         this.setLocationRelativeTo(null);
         this.owner = owner;
+        botoesMesa = new ArrayList<>();
         int linhas = Math.round(numeroMesas/3);
         GridLayout layout = new GridLayout(linhas, 3);
         mesasPanel.setLayout(layout);
         inicializarMesas(numeroMesas);
+        
+        //Começa com a mesa 1 selecionada
+        mesaSelecionadaLabel.setName("1");
+    }
+    
+    private enum EstadoMesa {
+        
     }
     
     @SuppressWarnings("unchecked")
@@ -33,6 +46,7 @@ public class TelaMesas extends javax.swing.JFrame {
         btnCriarComanda = new javax.swing.JButton();
         btnOcuparMesa = new javax.swing.JButton();
         btnCancelarComanda = new javax.swing.JButton();
+        mesaSelecionadaLabel = new javax.swing.JLabel();
         btnSair = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -71,26 +85,40 @@ public class TelaMesas extends javax.swing.JFrame {
         btnCriarComanda.setText("Criar comanda");
 
         btnOcuparMesa.setText("Ocupar Mesa");
+        btnOcuparMesa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnOcuparMesaActionPerformed(evt);
+            }
+        });
 
         btnCancelarComanda.setFont(new java.awt.Font("Lucida Grande", 0, 10)); // NOI18N
         btnCancelarComanda.setText("Cancelar comanda");
+
+        mesaSelecionadaLabel.setText("Mesa 1");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+            .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap(42, Short.MAX_VALUE)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnOcuparMesa, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnCriarComanda, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnCancelarComanda, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addGap(41, 41, 41))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnOcuparMesa, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnCriarComanda, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnCancelarComanda, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                        .addGap(41, 41, 41))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addComponent(mesaSelecionadaLabel)
+                        .addGap(80, 80, 80))))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(31, 31, 31)
+                .addGap(21, 21, 21)
+                .addComponent(mesaSelecionadaLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnOcuparMesa, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnCriarComanda, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -176,6 +204,31 @@ public class TelaMesas extends javax.swing.JFrame {
         this.owner.sair();
     }//GEN-LAST:event_btnSairActionPerformed
 
+    private void btnOcuparMesaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOcuparMesaActionPerformed
+        if(owner.mesaLivre(Integer.parseInt(mesaSelecionadaLabel.getName()))){
+            boolean sucesso = owner.ocuparMesa(Integer.parseInt(mesaSelecionadaLabel.getName()));
+            if (sucesso){
+                for(JButton button : botoesMesa){
+                    if(button.getName().equals(mesaSelecionadaLabel.getName())){
+                        button.setBackground(Color.red);
+                        btnOcuparMesa.setText("Liberar Mesa");
+                    }
+                }
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Não foi possível localizar a mesa");
+            }
+        } else {
+            boolean sucesso = owner.liberarMesa(Integer.parseInt(mesaSelecionadaLabel.getName()));
+            if (sucesso){
+                for(JButton button : botoesMesa){
+                    if(button.getName().equals(mesaSelecionadaLabel.getName())){
+                        button.setBackground(Color.green);
+                        btnOcuparMesa.setText("Ocupar Mesa");
+                    }
+                }
+            }
+        }
+    }//GEN-LAST:event_btnOcuparMesaActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelarComanda;
@@ -186,6 +239,7 @@ public class TelaMesas extends javax.swing.JFrame {
     private javax.swing.JButton btnSair;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JLabel mesaSelecionadaLabel;
     private javax.swing.JPanel mesasPanel;
     // End of variables declaration//GEN-END:variables
 
@@ -194,6 +248,22 @@ public class TelaMesas extends javax.swing.JFrame {
             JButton button = new JButton("Mesa " + (i+1));
             button.setSize(113, 85);
             button.setBackground(Color.green);
+            button.setName(new Integer(i+1).toString());
+            
+            button.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    JButton button = (JButton)e.getSource();
+                    mesaSelecionadaLabel.setText(button.getText());
+                    mesaSelecionadaLabel.setName(button.getName());
+                    if(button.getBackground().equals(Color.red)){
+                        btnOcuparMesa.setText("Liberar Mesa");
+                    } else {
+                        btnOcuparMesa.setText("Ocupar Mesa");
+                    }
+                }
+        });
+            botoesMesa.add(button);
             mesasPanel.add(button);
         }
         mesasPanel.revalidate();
