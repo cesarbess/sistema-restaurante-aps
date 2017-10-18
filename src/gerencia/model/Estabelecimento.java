@@ -1,6 +1,7 @@
 
 package gerencia.model;
 
+import atendimento.model.Mesa;
 import java.util.ArrayList;
 
 public class Estabelecimento {

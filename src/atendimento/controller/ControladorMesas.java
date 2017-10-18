@@ -5,7 +5,7 @@ import atendimento.view.TelaMesas;
 import gerencia.controller.ControladorCardapio;
 import gerencia.controller.ControladorPrincipal;
 import gerencia.model.Estabelecimento;
-import gerencia.model.Mesa;
+import atendimento.model.Mesa;
 
 public class ControladorMesas {
     

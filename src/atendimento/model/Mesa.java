@@ -1,5 +1,5 @@
 
-package gerencia.model;
+package atendimento.model;
 
 public class Mesa {
     private boolean estaLivre;
