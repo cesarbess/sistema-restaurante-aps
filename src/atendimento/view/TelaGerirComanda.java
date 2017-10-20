@@ -13,6 +13,7 @@ public class TelaGerirComanda extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         this.owner = owner;
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
 
     /**

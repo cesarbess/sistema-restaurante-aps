@@ -30,6 +30,7 @@ public class Comanda {
         itensPedido.add(itemCardapio);
     }
 
-
-    
+    public String getDescrição() {
+        return "Comanda da mesa: " + this.mesa.getId();
+    }
 }

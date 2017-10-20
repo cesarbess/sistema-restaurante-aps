@@ -2,6 +2,7 @@
 package atendimento.view;
 
 import atendimento.controller.ControladorComandas;
+import javax.swing.DefaultListModel;
 
 public class TelaComandas extends javax.swing.JFrame {
     
@@ -25,7 +26,7 @@ public class TelaComandas extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         trocarStatusBtn = new javax.swing.JButton();
         trocarMesaBtn = new javax.swing.JButton();
-        enviarCozinhaBtn1 = new javax.swing.JButton();
+        enviarCozinhaBtn = new javax.swing.JButton();
         sairBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -48,11 +49,6 @@ public class TelaComandas extends javax.swing.JFrame {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Comandas"));
 
-        listaComandas.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Comanda 1", "Comanda 2", "Comanda 3", "Comanda 4" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
         jScrollPane1.setViewportView(listaComandas);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -80,8 +76,8 @@ public class TelaComandas extends javax.swing.JFrame {
         trocarMesaBtn.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
         trocarMesaBtn.setText("Trocar Mesa");
 
-        enviarCozinhaBtn1.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
-        enviarCozinhaBtn1.setText("Enviar a cozinha");
+        enviarCozinhaBtn.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
+        enviarCozinhaBtn.setText("Enviar a cozinha");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -90,7 +86,7 @@ public class TelaComandas extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addContainerGap(47, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(enviarCozinhaBtn1, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(enviarCozinhaBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(trocarStatusBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(trocarMesaBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(43, 43, 43))
@@ -99,7 +95,7 @@ public class TelaComandas extends javax.swing.JFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(40, 40, 40)
-                .addComponent(enviarCozinhaBtn1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(enviarCozinhaBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(trocarStatusBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -188,7 +184,7 @@ public class TelaComandas extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnComandas;
     private javax.swing.JButton btnMesas;
-    private javax.swing.JButton enviarCozinhaBtn1;
+    private javax.swing.JButton enviarCozinhaBtn;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -198,4 +194,8 @@ public class TelaComandas extends javax.swing.JFrame {
     private javax.swing.JButton trocarMesaBtn;
     private javax.swing.JButton trocarStatusBtn;
     // End of variables declaration//GEN-END:variables
+
+    public void setarModeloLista(DefaultListModel model){
+        this.listaComandas.setModel(model);
+    }
 }

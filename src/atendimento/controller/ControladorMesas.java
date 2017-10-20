@@ -46,7 +46,8 @@ public class ControladorMesas {
 
     public void abrirTelaComandas() {
         telaMesas.setVisible(false);
-        this.controladorComandas.abrirTela();
+        controladorComandas.setEstabelecimento(estabelecimento);
+        controladorComandas.abrirTela();
     }
 
     public void sair() {
