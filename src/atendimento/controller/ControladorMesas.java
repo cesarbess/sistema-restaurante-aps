@@ -162,4 +162,15 @@ public class ControladorMesas {
         telaGerirComanda.setVisible(false);
         zerarComanda();
     }
+
+    public boolean mesaPossuiComanda(Integer idMesaSelecionada) {
+        Mesa mesa = estabelecimento.getMesaCom(idMesaSelecionada);
+        return mesa.getComanda() != null;
+    }
+
+    public void cancelarComanda(Integer idMesaSelecionada) {
+        //PRECISA CHECAR SE A COMANDA POSSUI ITENS ATIVO NA COZINHA
+        Mesa mesa = estabelecimento.getMesaCom(idMesaSelecionada);
+        mesa.setComanda(null);
+    }
 }

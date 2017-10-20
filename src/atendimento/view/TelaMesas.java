@@ -94,6 +94,11 @@ public class TelaMesas extends javax.swing.JFrame {
 
         btnCancelarComanda.setFont(new java.awt.Font("Lucida Grande", 0, 10)); // NOI18N
         btnCancelarComanda.setText("Cancelar comanda");
+        btnCancelarComanda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarComandaActionPerformed(evt);
+            }
+        });
 
         mesaSelecionadaLabel.setText("Mesa 1");
 
@@ -234,6 +239,16 @@ public class TelaMesas extends javax.swing.JFrame {
     private void btnCriarComandaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCriarComandaActionPerformed
         owner.abrirTelaGerirComanda();
     }//GEN-LAST:event_btnCriarComandaActionPerformed
+
+    private void btnCancelarComandaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarComandaActionPerformed
+        boolean mesaPossuiComanda = owner.mesaPossuiComanda(getIdMesaSelecionada());
+        if(mesaPossuiComanda){
+            owner.cancelarComanda(getIdMesaSelecionada());
+            JOptionPane.showMessageDialog(rootPane, "Comanda cancelada com sucesso");
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Esta mesa não possui comanda");
+        }
+    }//GEN-LAST:event_btnCancelarComandaActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelarComanda;
