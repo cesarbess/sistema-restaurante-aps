@@ -60,7 +60,7 @@ public class ControladorMesas {
     }
 
     private void configurarControlador() {
-        controladorComandas = new ControladorComandas();
+        controladorComandas = new ControladorComandas(this.estabelecimento);
         controladorComandas.setControladorMesas(this);
         controladorComandas.setControladorInicial(controladorPrincipal);
     }

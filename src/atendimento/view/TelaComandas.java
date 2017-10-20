@@ -3,6 +3,7 @@ package atendimento.view;
 
 import atendimento.controller.ControladorComandas;
 import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
 
 public class TelaComandas extends javax.swing.JFrame {
     
@@ -75,9 +76,19 @@ public class TelaComandas extends javax.swing.JFrame {
 
         trocarMesaBtn.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
         trocarMesaBtn.setText("Trocar Mesa");
+        trocarMesaBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                trocarMesaBtnActionPerformed(evt);
+            }
+        });
 
         enviarCozinhaBtn.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
         enviarCozinhaBtn.setText("Enviar a cozinha");
+        enviarCozinhaBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                enviarCozinhaBtnActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -181,6 +192,27 @@ public class TelaComandas extends javax.swing.JFrame {
         this.owner.sair();
     }//GEN-LAST:event_sairBtnActionPerformed
 
+    private void trocarMesaBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_trocarMesaBtnActionPerformed
+        if(listaComandas.isSelectionEmpty()){
+            JOptionPane.showMessageDialog(rootPane, "Selecione uma comanda para enviar a cozinha");
+        } else {
+            owner.abrirTelaTrocarMesa();
+        }
+    }//GEN-LAST:event_trocarMesaBtnActionPerformed
+
+    private void enviarCozinhaBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enviarCozinhaBtnActionPerformed
+        if(listaComandas.isSelectionEmpty()){
+            JOptionPane.showMessageDialog(rootPane, "Selecione uma comanda para enviar a cozinha");
+        } else {
+            Integer numeroMesaSelecionada = getIdComandaSelecionada();
+            if (owner.enviarComandaACozinha(numeroMesaSelecionada)){
+                JOptionPane.showMessageDialog(rootPane, "Os itens pendentes da comanda foram enviados a cozinha");
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "A comanda não tinha nenhum item pendente a ser enviado a cozinha");
+            }
+        }
+    }//GEN-LAST:event_enviarCozinhaBtnActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnComandas;
     private javax.swing.JButton btnMesas;
@@ -197,5 +229,10 @@ public class TelaComandas extends javax.swing.JFrame {
 
     public void setarModeloLista(DefaultListModel model){
         this.listaComandas.setModel(model);
+    }
+    
+    public Integer getIdComandaSelecionada(){
+        String comandaSelecionada = listaComandas.getSelectedValue();
+        return Integer.parseInt(comandaSelecionada.substring(comandaSelecionada.length() -1));
     }
 }

@@ -222,6 +222,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Trocar Mesa"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="trocarMesaBtnActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="enviarCozinhaBtn">
               <Properties>
@@ -230,6 +233,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Enviar a cozinha"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="enviarCozinhaBtnActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
