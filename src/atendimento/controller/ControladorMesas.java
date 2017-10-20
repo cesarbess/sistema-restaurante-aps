@@ -152,7 +152,7 @@ public class ControladorMesas {
         Comanda novaComanda = new Comanda(this.estabelecimento.getMesaCom(idMesa));
         for(String item : listaItensComanda){
             for(ItemCardapio itemCardapio : estabelecimento.getCardapio().getItens()){
-                if(itemCardapio.getDescricao().contains(item)){
+                if(item.contains(itemCardapio.getDescricao())){
                     novaComanda.adicionarItemNaComanda(itemCardapio);
                 }
             }
