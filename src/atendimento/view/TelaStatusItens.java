@@ -48,7 +48,7 @@ public class TelaStatusItens extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setText("Itens do pedido");
+        jLabel1.setText("Itens da comanda");
 
         jList1.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "File Mignon", "Coca-Cola" };
