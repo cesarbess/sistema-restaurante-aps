@@ -30,10 +30,6 @@ public class TelaMesas extends javax.swing.JFrame {
         mesaSelecionadaLabel.setName("1");
     }
     
-    private enum EstadoMesa {
-        
-    }
-    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -83,6 +79,11 @@ public class TelaMesas extends javax.swing.JFrame {
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Opções\n"));
 
         btnCriarComanda.setText("Criar comanda");
+        btnCriarComanda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCriarComandaActionPerformed(evt);
+            }
+        });
 
         btnOcuparMesa.setText("Ocupar Mesa");
         btnOcuparMesa.addActionListener(new java.awt.event.ActionListener() {
@@ -230,6 +231,10 @@ public class TelaMesas extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnOcuparMesaActionPerformed
 
+    private void btnCriarComandaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCriarComandaActionPerformed
+        owner.abrirTelaGerirComanda();
+    }//GEN-LAST:event_btnCriarComandaActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelarComanda;
     private javax.swing.JButton btnComandas;
@@ -268,5 +273,9 @@ public class TelaMesas extends javax.swing.JFrame {
         }
         mesasPanel.revalidate();
         mesasPanel.repaint();
+    }
+    
+    public Integer getIdMesaSelecionada(){
+        return Integer.parseInt(mesaSelecionadaLabel.getName());
     }
 }

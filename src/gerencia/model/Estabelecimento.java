@@ -1,6 +1,7 @@
 
 package gerencia.model;
 
+import atendimento.model.Comanda;
 import atendimento.model.Mesa;
 import java.util.ArrayList;
 
@@ -49,5 +50,20 @@ public class Estabelecimento {
     public ArrayList<Mesa> getMesas() {
         return mesas;
     }
+    
+    public Mesa getMesaCom(Integer id){
+        for(Mesa mesa : this.mesas){
+            if(mesa.getId().equals(id)){
+                return mesa;
+            }
+        }
+        return null;
+    }
 
+    public void ocuparMesa(Integer idMesa, Comanda novaComanda) {
+        Mesa mesa = getMesaCom(idMesa);
+        mesa.setEstaLivre(false);
+        mesa.setComanda(novaComanda);
+        System.out.println("Setou a mesa com id: " + mesa.getId() + "para o status: ocupada com a comanda " + mesa.getComanda().getItensPedido());
+    }
 }

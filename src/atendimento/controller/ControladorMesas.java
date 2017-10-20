@@ -1,30 +1,43 @@
 
 package atendimento.controller;
 
+import atendimento.model.Comanda;
 import atendimento.view.TelaMesas;
 import gerencia.controller.ControladorCardapio;
 import gerencia.controller.ControladorPrincipal;
 import gerencia.model.Estabelecimento;
 import atendimento.model.Mesa;
+import atendimento.view.TelaGerirComanda;
+import gerencia.model.ItemCardapio;
+import java.util.ArrayList;
+import javax.swing.DefaultListModel;
 
 public class ControladorMesas {
     
     private TelaMesas telaMesas;
+    private TelaGerirComanda telaGerirComanda;
     private ControladorComandas controladorComandas;
-    private ControladorCardapio controladorCardapio;
     private ControladorPrincipal controladorPrincipal;
     
     private Estabelecimento estabelecimento;
+    private DefaultListModel comandaModel;
+    private ArrayList<String> listaItensComanda;
     
     public ControladorMesas(){
         this.telaMesas = new TelaMesas(this, this.estabelecimento.getQuantidadeMesas());
+        this.telaGerirComanda = new TelaGerirComanda(this);
+        comandaModel = new DefaultListModel();
+        listaItensComanda = new ArrayList<>();
     }
    
     public ControladorMesas(ControladorPrincipal controladorInicial, Estabelecimento estabelecimento) {
         this.estabelecimento = estabelecimento;
         this.controladorPrincipal = controladorInicial;
         this.telaMesas = new TelaMesas(this, this.estabelecimento.getQuantidadeMesas());
+        this.telaGerirComanda = new TelaGerirComanda(this);
         configurarControlador();
+        comandaModel = new DefaultListModel();
+        listaItensComanda = new ArrayList<>();
     }
 
     public void abrirTela() {
@@ -52,7 +65,6 @@ public class ControladorMesas {
     }
 
     public boolean mesaLivre(Integer idMesa) {
-        Estabelecimento estabelecimento = controladorPrincipal.getEstabelecimento();
         for(Mesa mesa : estabelecimento.getMesas()){
            if(mesa.getId().equals(idMesa) && !mesa.isEstaLivre()){
                return false;
@@ -62,7 +74,6 @@ public class ControladorMesas {
     }
 
     public boolean ocuparMesa(int idMesa) {
-        Estabelecimento estabelecimento = controladorPrincipal.getEstabelecimento();
         for(Mesa mesa : estabelecimento.getMesas()){
            if(mesa.getId().equals(idMesa) && mesa.isEstaLivre()){
                mesa.setEstaLivre(false);
@@ -75,7 +86,6 @@ public class ControladorMesas {
     }
 
     public boolean liberarMesa(int idMesa) {
-        Estabelecimento estabelecimento = controladorPrincipal.getEstabelecimento();
         for(Mesa mesa : estabelecimento.getMesas()){
            if(mesa.getId().equals(idMesa) && !mesa.isEstaLivre()){
                //TODO checar se comanda esta ativa
@@ -86,5 +96,70 @@ public class ControladorMesas {
            }
         }
         return false;
+    }
+
+    public void abrirTelaGerirComanda() {
+        this.telaGerirComanda.setVisible(true);
+        atualizarCardapioNaTela();
+    }
+    
+    private DefaultListModel configurarCardapio() {
+        ArrayList<ItemCardapio> itens = estabelecimento.getCardapio().getItens();
+        DefaultListModel model = new DefaultListModel();
+        if(itens.size()>=0){
+            for(int i = 0; i < itens.size(); i++){
+                if(itens.get(i).isExigePreparo()){
+                    model.add(i, itens.get(i).getDescricao()+ "   " + "(Exige preparo)");
+                } else{
+                    model.add(i, itens.get(i).getDescricao());    
+                }
+            }
+            return model;
+        }
+        return model;
+    }
+    
+    private void atualizarCardapioNaTela() {
+        DefaultListModel modelCardapio = configurarCardapio();
+        telaGerirComanda.setarModeloLista(modelCardapio);
+    }
+
+    public void adicionarItemNaComanda(String item) {
+        listaItensComanda.add(item);
+        comandaModel.addElement(item);
+        telaGerirComanda.setComandaListModel(comandaModel);
+        for(String i : listaItensComanda){
+            System.out.println(i);
+        }
+    }
+
+    public void removerItemNaComanda(String item) {
+        listaItensComanda.remove(item);
+        comandaModel.removeElement(item);
+        telaGerirComanda.setComandaListModel(comandaModel);
+        for(String i : listaItensComanda){
+            System.out.println(i);
+        }
+    }
+
+    public void zerarComanda() {
+        comandaModel.removeAllElements();
+        listaItensComanda.removeAll(listaItensComanda);
+    }
+
+    public void criaComanda() {
+        Integer idMesa = this.telaMesas.getIdMesaSelecionada();
+        Comanda novaComanda = new Comanda(this.estabelecimento.getMesaCom(idMesa));
+        for(String item : listaItensComanda){
+            for(ItemCardapio itemCardapio : estabelecimento.getCardapio().getItens()){
+                if(itemCardapio.getDescricao().contains(item)){
+                    novaComanda.adicionarItemNaComanda(itemCardapio);
+                }
+            }
+        }
+        
+        estabelecimento.ocuparMesa(idMesa, novaComanda);
+        telaGerirComanda.setVisible(false);
+        zerarComanda();
     }
 }

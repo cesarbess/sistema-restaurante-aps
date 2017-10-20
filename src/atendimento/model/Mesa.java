@@ -2,8 +2,10 @@
 package atendimento.model;
 
 public class Mesa {
+    
     private boolean estaLivre;
     private Integer id;
+    private Comanda comanda;
 
     public Mesa(Integer id, boolean estaLivre){
         this.id = id;
@@ -21,6 +23,13 @@ public class Mesa {
 
     public void setEstaLivre(boolean estaLivre) {
         this.estaLivre = estaLivre;
+    }
+    
+    public Comanda getComanda() {
+        return comanda;
+    }
+    public void setComanda(Comanda comanda) {
+        this.comanda = comanda;
     }
 
     public Integer getId() {

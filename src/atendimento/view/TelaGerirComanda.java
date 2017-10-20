@@ -1,11 +1,18 @@
 
 package atendimento.view;
 
+import atendimento.controller.ControladorMesas;
+import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
+
 public class TelaGerirComanda extends javax.swing.JFrame {
 
-    public TelaGerirComanda() {
+    private ControladorMesas owner;
+    
+    public TelaGerirComanda(ControladorMesas owner) {
         initComponents();
         this.setLocationRelativeTo(null);
+        this.owner = owner;
     }
 
     /**
@@ -17,49 +24,60 @@ public class TelaGerirComanda extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jButton1 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
+        itensComanda = new javax.swing.JList<>();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jList2 = new javax.swing.JList<>();
+        listaCardapio = new javax.swing.JList<>();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
+        adicionarNaComandaBtn = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        cancelarBtn = new javax.swing.JButton();
+        salvarBtn = new javax.swing.JButton();
+        removerBtn = new javax.swing.JButton();
+
+        jButton1.setText("jButton1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jList1.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Filé Mignon" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
-        jScrollPane1.setViewportView(jList1);
+        jScrollPane1.setViewportView(itensComanda);
 
-        jList2.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Alcatra", "Maminha", "Filé Mignon", " " };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
-        jScrollPane2.setViewportView(jList2);
+        jScrollPane2.setViewportView(listaCardapio);
 
         jLabel1.setText("Itens Comanda");
 
         jLabel2.setText("Itens Cardapio");
 
-        jButton2.setText("Adicionar na comanda");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        adicionarNaComandaBtn.setText("Adicionar na comanda");
+        adicionarNaComandaBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                adicionarNaComandaBtnActionPerformed(evt);
             }
         });
 
         jLabel3.setText("Comanda 1");
 
-        jButton3.setText("Cancelar");
+        cancelarBtn.setText("Cancelar");
+        cancelarBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cancelarBtnActionPerformed(evt);
+            }
+        });
 
-        jButton4.setText("Salvar");
+        salvarBtn.setText("Salvar");
+        salvarBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                salvarBtnActionPerformed(evt);
+            }
+        });
+
+        removerBtn.setText("Remover");
+        removerBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                removerBtnActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -72,18 +90,23 @@ public class TelaGerirComanda extends javax.swing.JFrame {
                 .addComponent(jLabel2)
                 .addGap(79, 79, 79))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(40, 40, 40)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(37, 37, 37)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3)
-                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(40, 40, 40)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(37, 37, 37)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
+                            .addComponent(cancelarBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(salvarBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(76, 76, 76)
+                        .addComponent(removerBtn)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(6, 6, 6)
-                        .addComponent(jButton2))
+                        .addComponent(adicionarNaComandaBtn))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(33, 33, 33))
         );
@@ -106,31 +129,69 @@ public class TelaGerirComanda extends javax.swing.JFrame {
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 258, Short.MAX_VALUE)
                             .addComponent(jScrollPane1))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton2))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(adicionarNaComandaBtn)
+                            .addComponent(removerBtn)))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton4)
+                        .addComponent(salvarBtn)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton3)))
+                        .addComponent(cancelarBtn)))
                 .addContainerGap(70, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+    private void adicionarNaComandaBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adicionarNaComandaBtnActionPerformed
+        if(listaCardapio.isSelectionEmpty()){
+            JOptionPane.showMessageDialog(itensComanda, "Selecione algum item do cardápio");
+        } else {
+            owner.adicionarItemNaComanda(this.listaCardapio.getSelectedValue());
+        }
+    }//GEN-LAST:event_adicionarNaComandaBtnActionPerformed
+
+    private void removerBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removerBtnActionPerformed
+        if(itensComanda.isSelectionEmpty()){
+            JOptionPane.showMessageDialog(itensComanda, "Selecione algum item da comanda");
+        } else {
+            owner.removerItemNaComanda(this.itensComanda.getSelectedValue());
+        }
+    }//GEN-LAST:event_removerBtnActionPerformed
+
+    private void cancelarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarBtnActionPerformed
+        owner.zerarComanda(); 
+        this.setVisible(false);
+    }//GEN-LAST:event_cancelarBtnActionPerformed
+
+    private void salvarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salvarBtnActionPerformed
+        if(itensComanda.getComponentCount() == 0){
+            JOptionPane.showMessageDialog(this, "A comanda está vazia");
+        } else {
+            owner.criaComanda();
+        }
+    }//GEN-LAST:event_salvarBtnActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
+    private javax.swing.JButton adicionarNaComandaBtn;
+    private javax.swing.JButton cancelarBtn;
+    private javax.swing.JList<String> itensComanda;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JList<String> jList1;
-    private javax.swing.JList<String> jList2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JList<String> listaCardapio;
+    private javax.swing.JButton removerBtn;
+    private javax.swing.JButton salvarBtn;
     // End of variables declaration//GEN-END:variables
+
+    public void setarModeloLista(DefaultListModel model){;
+        this.listaCardapio.setModel(model);
+    }
+
+    public void setComandaListModel(DefaultListModel comandaModel) {
+        this.itensComanda.setModel(comandaModel);
+    }
+
 }
