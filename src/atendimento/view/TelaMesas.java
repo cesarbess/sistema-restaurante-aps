@@ -236,7 +236,12 @@ public class TelaMesas extends javax.swing.JFrame {
     }//GEN-LAST:event_btnOcuparMesaActionPerformed
 
     private void btnCriarComandaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCriarComandaActionPerformed
+        boolean mesaPossuiComanda = owner.mesaPossuiComanda(getIdMesaSelecionada());
+        if(mesaPossuiComanda){
+            JOptionPane.showMessageDialog(rootPane, "Esta mesa já possui comanda");
+        } else {
         owner.abrirTelaGerirComanda();
+        }
     }//GEN-LAST:event_btnCriarComandaActionPerformed
 
     private void btnCancelarComandaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarComandaActionPerformed
