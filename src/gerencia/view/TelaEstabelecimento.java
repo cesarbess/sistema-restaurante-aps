@@ -2,8 +2,6 @@
 package gerencia.view;
 
 import gerencia.controller.ControladorEstabelecimento;
-import gerencia.controller.ControladorPrincipal;
-import gerencia.model.Estabelecimento;
 import javax.swing.JOptionPane;
 
 public class TelaEstabelecimento extends javax.swing.JFrame {

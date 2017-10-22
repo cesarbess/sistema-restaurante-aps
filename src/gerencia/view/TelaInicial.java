@@ -104,4 +104,8 @@ public class TelaInicial extends javax.swing.JFrame {
     public void mostrarAvisoConfEstabelecimento() {
         JOptionPane.showMessageDialog(rootPane, "É preciso configurar um Estabelecimento para continuar");
     }
+
+    public void mostrarAvisoCardapioNaoConfigurado() {
+        JOptionPane.showMessageDialog(rootPane, "Adicione pelo menos um item no cardápio para continuar");
+    }
 }

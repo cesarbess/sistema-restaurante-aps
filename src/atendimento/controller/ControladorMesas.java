@@ -3,7 +3,6 @@ package atendimento.controller;
 
 import atendimento.model.Comanda;
 import atendimento.view.TelaMesas;
-import gerencia.controller.ControladorCardapio;
 import gerencia.controller.ControladorPrincipal;
 import gerencia.model.Estabelecimento;
 import atendimento.model.Mesa;
@@ -16,24 +15,23 @@ public class ControladorMesas {
     
     private TelaMesas telaMesas;
     private TelaGerirComanda telaGerirComanda;
+
     private ControladorComandas controladorComandas;
     private ControladorPrincipal controladorPrincipal;
-    
-    private Estabelecimento estabelecimento;
+
     private DefaultListModel comandaModel;
     private ArrayList<String> listaItensComanda;
     
     public ControladorMesas(){
-        this.telaMesas = new TelaMesas(this, this.estabelecimento.getQuantidadeMesas());
+        this.telaMesas = new TelaMesas(this, Estabelecimento.getInstance().getQuantidadeMesas());
         this.telaGerirComanda = new TelaGerirComanda(this);
         comandaModel = new DefaultListModel();
         listaItensComanda = new ArrayList<>();
     }
    
-    public ControladorMesas(ControladorPrincipal controladorInicial, Estabelecimento estabelecimento) {
-        this.estabelecimento = estabelecimento;
+    public ControladorMesas(ControladorPrincipal controladorInicial) {
         this.controladorPrincipal = controladorInicial;
-        this.telaMesas = new TelaMesas(this, this.estabelecimento.getQuantidadeMesas());
+        this.telaMesas = new TelaMesas(this, Estabelecimento.getInstance().getQuantidadeMesas());
         this.telaGerirComanda = new TelaGerirComanda(this);
         configurarControlador();
         comandaModel = new DefaultListModel();
@@ -46,7 +44,6 @@ public class ControladorMesas {
 
     public void abrirTelaComandas() {
         telaMesas.setVisible(false);
-        controladorComandas.setEstabelecimento(estabelecimento);
         controladorComandas.abrirTela();
     }
 
@@ -55,18 +52,14 @@ public class ControladorMesas {
         this.controladorPrincipal.abrirTela();
     }
 
-    public void setEstabelecimento(Estabelecimento estabelecimento) {
-        this.estabelecimento = estabelecimento;
-    }
-
     private void configurarControlador() {
-        controladorComandas = new ControladorComandas(this.estabelecimento);
+        controladorComandas = new ControladorComandas();
         controladorComandas.setControladorMesas(this);
         controladorComandas.setControladorInicial(controladorPrincipal);
     }
 
     public boolean mesaLivre(Integer idMesa) {
-        for(Mesa mesa : estabelecimento.getMesas()){
+        for(Mesa mesa : Estabelecimento.getInstance().getMesas()){
            if(mesa.getId().equals(idMesa) && !mesa.isEstaLivre()){
                return false;
            } 
@@ -75,7 +68,7 @@ public class ControladorMesas {
     }
 
     public boolean ocuparMesa(int idMesa) {
-        for(Mesa mesa : estabelecimento.getMesas()){
+        for(Mesa mesa : Estabelecimento.getInstance().getMesas()){
            if(mesa.getId().equals(idMesa) && mesa.isEstaLivre()){
                mesa.setEstaLivre(false);
                return true;
@@ -87,7 +80,7 @@ public class ControladorMesas {
     }
 
     public boolean liberarMesa(int idMesa) {
-        for(Mesa mesa : estabelecimento.getMesas()){
+        for(Mesa mesa : Estabelecimento.getInstance().getMesas()){
            if(mesa.getId().equals(idMesa) && !mesa.isEstaLivre()){
                //TODO checar se comanda esta ativa
                mesa.setEstaLivre(true);
@@ -105,7 +98,7 @@ public class ControladorMesas {
     }
     
     private DefaultListModel configurarCardapio() {
-        ArrayList<ItemCardapio> itens = estabelecimento.getCardapio().getItens();
+        ArrayList<ItemCardapio> itens = Estabelecimento.getInstance().getCardapio().getItens();
         DefaultListModel model = new DefaultListModel();
         if(itens.size()>=0){
             for(int i = 0; i < itens.size(); i++){
@@ -150,28 +143,28 @@ public class ControladorMesas {
 
     public void criaComanda() {
         Integer idMesa = this.telaMesas.getIdMesaSelecionada();
-        Comanda novaComanda = new Comanda(this.estabelecimento.getMesaCom(idMesa));
+        Comanda novaComanda = new Comanda(Estabelecimento.getInstance().getMesaCom(idMesa));
         for(String item : listaItensComanda){
-            for(ItemCardapio itemCardapio : estabelecimento.getCardapio().getItens()){
+            for(ItemCardapio itemCardapio : Estabelecimento.getInstance().getCardapio().getItens()){
                 if(item.contains(itemCardapio.getDescricao())){
                     novaComanda.adicionarItemNaComanda(itemCardapio);
                 }
             }
         }
         
-        estabelecimento.ocuparMesa(idMesa, novaComanda);
+        Estabelecimento.getInstance().ocuparMesa(idMesa, novaComanda);
         telaGerirComanda.setVisible(false);
         zerarComanda();
     }
 
     public boolean mesaPossuiComanda(Integer idMesaSelecionada) {
-        Mesa mesa = estabelecimento.getMesaCom(idMesaSelecionada);
+        Mesa mesa = Estabelecimento.getInstance().getMesaCom(idMesaSelecionada);
         return mesa.getComanda() != null;
     }
 
     public void cancelarComanda(Integer idMesaSelecionada) {
         //PRECISA CHECAR SE A COMANDA POSSUI ITENS ATIVO NA COZINHA
-        Mesa mesa = estabelecimento.getMesaCom(idMesaSelecionada);
+        Mesa mesa = Estabelecimento.getInstance().getMesaCom(idMesaSelecionada);
         mesa.setComanda(null);
     }
 }

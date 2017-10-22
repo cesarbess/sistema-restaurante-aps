@@ -3,20 +3,20 @@ package gerencia.controller;
 
 import atendimento.controller.ControladorMesas;
 import gerencia.model.Estabelecimento;
-import gerencia.model.ItemCardapio;
-import gerencia.view.TelaEstabelecimento;
+import gerencia.view.TelaEscolhaPerfil;
 import gerencia.view.TelaInicial;
+import gerencia.model.TipoPerfil;
 
 public class ControladorPrincipal {
     
     private TelaInicial telaInicial;
+    private TelaEscolhaPerfil telaEscolhaPerfil;
     private ControladorEstabelecimento controladorEstabelecimento;
     private ControladorMesas controladorMesas;
     
-    private Estabelecimento estabelecimento;
-    
     public ControladorPrincipal(TelaInicial telaInicial){
         this.telaInicial = telaInicial;
+        this.telaEscolhaPerfil = new TelaEscolhaPerfil(this);
     }
     
         public static void main(String args[]) {
@@ -52,10 +52,9 @@ public class ControladorPrincipal {
     }
 
     public void entrarTelaGerencia() {
-        if (getEstabelecimento() == null){
+        if (controladorEstabelecimento == null){
             controladorEstabelecimento = new ControladorEstabelecimento(this);
         }
-        
         telaInicial.setVisible(false);
         controladorEstabelecimento.abrirTela();
     }
@@ -65,21 +64,33 @@ public class ControladorPrincipal {
     }
 
     public void entrarTelaAtendimento() {
-        if (this.getEstabelecimento() == null) {
+        if (!Estabelecimento.foiConfigurado()) {
             telaInicial.mostrarAvisoConfEstabelecimento();
-        } else {
-            controladorMesas = new ControladorMesas(this, getEstabelecimento());
+            return;
+        } else if(Estabelecimento.foiConfigurado() && (Estabelecimento.getInstance().getCardapio() == null || Estabelecimento.getInstance().getCardapio().getItens().isEmpty())){
+            telaInicial.mostrarAvisoCardapioNaoConfigurado();
+            return;
+        }
+        
+        else if (Estabelecimento.getInstance().getPerfilEmUso() == null) {
+            abrirTelaEscolhaPerfil();
+            return;
+        } else if (Estabelecimento.foiConfigurado() && (Estabelecimento.getInstance().getPerfilEmUso() != null && Estabelecimento.getInstance().getCardapio() != null)){
+            controladorMesas = new ControladorMesas(this);
             telaInicial.setVisible(false);
             controladorMesas.abrirTela();
         }
     }
-    
-    public void setEstabelecimento(Estabelecimento estabelecimento){
-        this.estabelecimento = estabelecimento;
-    }
 
-    public Estabelecimento getEstabelecimento() {
-        return estabelecimento;
+    public void escolherPerfil(TipoPerfil tipo) {
+        Estabelecimento.getInstance().setPerfilEmUso(tipo);
+        controladorMesas = new ControladorMesas(this);
+        telaInicial.setVisible(false);
+        telaEscolhaPerfil.setVisible(false);
+        controladorMesas.abrirTela();
+    }   
+
+    private void abrirTelaEscolhaPerfil() {
+        this.telaEscolhaPerfil.setVisible(true);
     }
-   
 }

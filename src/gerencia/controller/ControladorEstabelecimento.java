@@ -1,9 +1,11 @@
 
 package gerencia.controller;
 
+import atendimento.model.Mesa;
 import gerencia.model.Cardapio;
 import gerencia.model.Estabelecimento;
 import gerencia.view.TelaEstabelecimento;
+import java.util.ArrayList;
 
 public class ControladorEstabelecimento {
     
@@ -47,10 +49,16 @@ public class ControladorEstabelecimento {
     }
 
     public void registrarEstabelecimento(String nome, Integer qntMesas) {
-        this.estabelecimento = new Estabelecimento(nome, qntMesas);
+        this.estabelecimento = Estabelecimento.getInstance();
+        this.estabelecimento.setNome(nome);
+        this.estabelecimento.setQuantidadeMesas(qntMesas);
         this.estabelecimento.setCardapio(new Cardapio());
-        this.controladorPrincipal.setEstabelecimento(estabelecimento);
         this.telaEstabelecimento.mostrarConfirmacao(nome, qntMesas);
+        for(int i = 0; i < qntMesas; i++){
+            Mesa mesa = new Mesa(i+1);
+            this.estabelecimento.getMesas().add(mesa);
+            System.out.println("Mesa com ID: " + mesa.getId() + "adicionada no array de mesas");
+        }
     }
 
     public void setControladorCardapio(ControladorCardapio controladorCardapio) {

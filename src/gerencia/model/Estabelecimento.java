@@ -11,16 +11,18 @@ public class Estabelecimento {
     private int quantidadeMesas;
     private Cardapio cardapio;
     private ArrayList<Mesa> mesas;
+    private TipoPerfil perfilEmUso;
+    private static Estabelecimento instancia;
     
-    public Estabelecimento(String nome, int quantidadeMesas) {
-        this.nome = nome;
-        this.quantidadeMesas = quantidadeMesas;
+    private Estabelecimento(){
         mesas = new ArrayList<>();
-        for(int i = 0; i < quantidadeMesas; i++){
-            Mesa mesa = new Mesa(i+1);
-            mesas.add(mesa);
-            System.out.println("Mesa com ID: " + mesa.getId() + "adicionada no array de mesas");
+    }
+    
+    public static synchronized Estabelecimento getInstance(){
+        if(instancia == null){
+            instancia = new Estabelecimento();
         }
+        return instancia;
     }
 
     public String getNome() {
@@ -65,5 +67,17 @@ public class Estabelecimento {
         mesa.setEstaLivre(false);
         mesa.setComanda(novaComanda);
         System.out.println("Setou a mesa com id: " + mesa.getId() + "para o status: ocupada com a comanda " + mesa.getComanda().getItensPedido());
+    }
+
+    public TipoPerfil getPerfilEmUso() {
+        return perfilEmUso;
+    }
+
+    public void setPerfilEmUso(TipoPerfil perfilEmUso) {
+        this.perfilEmUso = perfilEmUso;
+    }
+    
+    public static boolean foiConfigurado(){
+        return instancia != null;
     }
 }

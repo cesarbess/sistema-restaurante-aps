@@ -13,27 +13,17 @@ import java.util.ArrayList;
 import javax.swing.DefaultListModel;
 
 public class ControladorComandas {
-
-    public Estabelecimento getEstabelecimento() {
-        return estabelecimento;
-    }
     
-    public void setEstabelecimento(Estabelecimento estabelecimento) {
-        this.estabelecimento = estabelecimento;
-    }
-
     private TelaComandas telaComandas;
     private TelaTrocarMesa telaTrocarMesa;
     private ControladorMesas controladorMesas;
     private ControladorPrincipal controladorInicial;
-    private Estabelecimento estabelecimento;
     
     private DefaultListModel comandaModel;
     
-    public ControladorComandas(Estabelecimento estabelecimento){
+    public ControladorComandas(){
         this.telaComandas = new TelaComandas(this);
-        this.estabelecimento = estabelecimento;
-        this.telaTrocarMesa = new TelaTrocarMesa(this, estabelecimento.getQuantidadeMesas());
+        this.telaTrocarMesa = new TelaTrocarMesa(this, Estabelecimento.getInstance().getQuantidadeMesas());
     }
 
     public void abrirTela() {
@@ -62,7 +52,7 @@ public class ControladorComandas {
     
     private DefaultListModel configurarListaComandas() {
         ArrayList<Comanda> comandas = new ArrayList<>();
-        for(Mesa mesa : estabelecimento.getMesas()){
+        for(Mesa mesa : Estabelecimento.getInstance().getMesas()){
             if(mesa.getComanda() != null){
                 comandas.add(mesa.getComanda());
             }
@@ -78,7 +68,7 @@ public class ControladorComandas {
     }
 
     public boolean enviarComandaACozinha(Integer numeroMesaSelecionada) {
-        Mesa mesa = estabelecimento.getMesaCom(numeroMesaSelecionada);
+        Mesa mesa = Estabelecimento.getInstance().getMesaCom(numeroMesaSelecionada);
         boolean tinhaItensPendentes = false;
         for(ItemCardapio item : mesa.getComanda().getItensPedido()){
             if(item.getStatus() == null){
@@ -91,17 +81,17 @@ public class ControladorComandas {
     }
 
     public boolean verificarSeMesaDisponivel(Integer novaMesa) {
-        Mesa mesa = estabelecimento.getMesaCom(novaMesa);
+        Mesa mesa = Estabelecimento.getInstance().getMesaCom(novaMesa);
         return mesa.isEstaLivre();
     }
 
     public void trocarMesaDaComanda(Integer idNovaMesa) {
         Integer idMesaSelecionada = this.telaComandas.getIdComandaSelecionada();
-        Mesa mesaAntiga = estabelecimento.getMesaCom(idMesaSelecionada);
+        Mesa mesaAntiga = Estabelecimento.getInstance().getMesaCom(idMesaSelecionada);
         Comanda comanda = mesaAntiga.getComanda();
         mesaAntiga.setComanda(null);
         mesaAntiga.setEstaLivre(true);
-        Mesa novaMesa = estabelecimento.getMesaCom(idNovaMesa);
+        Mesa novaMesa = Estabelecimento.getInstance().getMesaCom(idNovaMesa);
         novaMesa.setComanda(comanda);
         comanda.setMesa(novaMesa);
         novaMesa.setEstaLivre(false);

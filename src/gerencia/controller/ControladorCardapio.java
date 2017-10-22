@@ -1,6 +1,7 @@
 
 package gerencia.controller;
 
+import gerencia.model.Estabelecimento;
 import gerencia.view.TelaCardapio;
 import gerencia.view.TelaItem;
 import gerencia.model.ItemCardapio;
@@ -57,8 +58,6 @@ public class ControladorCardapio {
         telaItem.setVisible(true);
     }
     
-  
-    
     public void abrirTelaItemEditar(int indiceSelecionado) {
         telaItem.setModoEdicao(true);
         telaItem.setIndiceItemSelecionado(indiceSelecionado);
@@ -70,16 +69,16 @@ public class ControladorCardapio {
     public void adicionarItemCardapio(String descricao, boolean exigePreparo) {
         //OBS: O status do item começa com NULL antes de ser enviado a cozinha
         ItemCardapio item = new ItemCardapio(descricao, exigePreparo, null);     
-        controladorPrincipal.getEstabelecimento().getCardapio().inserirItemNoCardapio(item);
+        Estabelecimento.getInstance().getCardapio().inserirItemNoCardapio(item);
         atualizarCardapioNaTela();
     }
 
     public boolean JaPossuiItemComEsteNomeNoCardapio(String nome) {
-        return controladorPrincipal.getEstabelecimento().getCardapio().jaPossuiItemCom(nome);
+        return Estabelecimento.getInstance().getCardapio().jaPossuiItemCom(nome);
     }
 
     private DefaultListModel configurarCardapio() {
-        ArrayList<ItemCardapio> itens = controladorPrincipal.getEstabelecimento().getCardapio().getItens();
+        ArrayList<ItemCardapio> itens = Estabelecimento.getInstance().getCardapio().getItens();
         DefaultListModel model = new DefaultListModel();
         if(itens.size()>=0){
             for(int i = 0; i < itens.size(); i++){
@@ -100,16 +99,16 @@ public class ControladorCardapio {
     } 
 
     public void editarItem(int indiceItemSelecionado, String nome, boolean exigePreparo) {
-        this.controladorPrincipal.getEstabelecimento().getCardapio().editarItem(indiceItemSelecionado, nome, exigePreparo);
+        Estabelecimento.getInstance().getCardapio().editarItem(indiceItemSelecionado, nome, exigePreparo);
         this.atualizarCardapioNaTela();
     }
 
     public void removerItem(int posicao) {
-        this.controladorPrincipal.getEstabelecimento().getCardapio().removerItemNa(posicao);
+        Estabelecimento.getInstance().getCardapio().removerItemNa(posicao);
         this.atualizarCardapioNaTela();
     }
     
     public ItemCardapio getItem(int posicao){
-        return this.controladorPrincipal.getEstabelecimento().getCardapio().pegarItem(posicao);
+        return Estabelecimento.getInstance().getCardapio().pegarItem(posicao);
     }
 }
