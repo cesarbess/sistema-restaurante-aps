@@ -165,7 +165,7 @@ public class TelaGerirComanda extends javax.swing.JFrame {
     }//GEN-LAST:event_cancelarBtnActionPerformed
 
     private void salvarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salvarBtnActionPerformed
-        if(itensComanda.getComponentCount() == 0){
+        if(itensComanda.getModel().getSize() == 0){
             JOptionPane.showMessageDialog(this, "A comanda está vazia");
         } else {
             owner.criaComanda();

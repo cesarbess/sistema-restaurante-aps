@@ -240,7 +240,7 @@ public class TelaMesas extends javax.swing.JFrame {
         if(mesaPossuiComanda){
             JOptionPane.showMessageDialog(rootPane, "Esta mesa já possui comanda");
         } else {
-        owner.abrirTelaGerirComanda();
+            owner.abrirTelaGerirComanda();
         }
     }//GEN-LAST:event_btnCriarComandaActionPerformed
 
