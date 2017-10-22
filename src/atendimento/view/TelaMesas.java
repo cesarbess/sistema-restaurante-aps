@@ -3,7 +3,6 @@ package atendimento.view;
 
 import atendimento.controller.ControladorMesas;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

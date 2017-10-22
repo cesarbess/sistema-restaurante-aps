@@ -21,13 +21,6 @@ public class ControladorMesas {
 
     private DefaultListModel comandaModel;
     private ArrayList<String> listaItensComanda;
-    
-    public ControladorMesas(){
-        this.telaMesas = new TelaMesas(this, Estabelecimento.getInstance().getQuantidadeMesas());
-        this.telaGerirComanda = new TelaGerirComanda(this);
-        comandaModel = new DefaultListModel();
-        listaItensComanda = new ArrayList<>();
-    }
    
     public ControladorMesas(ControladorPrincipal controladorInicial) {
         this.controladorPrincipal = controladorInicial;
@@ -53,9 +46,8 @@ public class ControladorMesas {
     }
 
     private void configurarControlador() {
-        controladorComandas = new ControladorComandas();
+        controladorComandas = new ControladorComandas(controladorPrincipal);
         controladorComandas.setControladorMesas(this);
-        controladorComandas.setControladorInicial(controladorPrincipal);
     }
 
     public boolean mesaLivre(Integer idMesa) {

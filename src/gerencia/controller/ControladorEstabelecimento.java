@@ -66,7 +66,7 @@ public class ControladorEstabelecimento {
     }
 
     private void configurarControladores() {
-        controladorCardapio = new ControladorCardapio();
+        controladorCardapio = new ControladorCardapio(controladorPrincipal);
         controladorCardapio.setControladorEstabelecimento(this);
         controladorCardapio.setControladorInicial(controladorPrincipal);
         

@@ -17,19 +17,20 @@ public class ControladorComandas {
     private TelaComandas telaComandas;
     private TelaTrocarMesa telaTrocarMesa;
     private ControladorMesas controladorMesas;
-    private ControladorPrincipal controladorInicial;
+    private ControladorPrincipal controladorPrincipal;
     
     private DefaultListModel comandaModel;
     
-    public ControladorComandas(){
+    public ControladorComandas(ControladorPrincipal controladorPrincipal){
         this.telaComandas = new TelaComandas(this);
         this.telaTrocarMesa = new TelaTrocarMesa(this, Estabelecimento.getInstance().getQuantidadeMesas());
+        this.controladorPrincipal = controladorPrincipal;
     }
 
     public void abrirTela() {
         atualizarLista();
+        telaComandas.configurarTelaParaPerfil(Estabelecimento.getInstance().getPerfilEmUso());
         telaComandas.setVisible(true);
-        
     }
 
     public void abrirTelaMesas() {
@@ -39,7 +40,7 @@ public class ControladorComandas {
 
     public void sair() {
         telaComandas.setVisible(false);
-        this.controladorInicial.abrirTela();
+        this.controladorPrincipal.abrirTela();
     }
 
     public void setControladorMesas(ControladorMesas controladorMesas) {
@@ -47,7 +48,7 @@ public class ControladorComandas {
     }
 
     public void setControladorInicial(ControladorPrincipal controladorInicial) {
-        this.controladorInicial = controladorInicial;
+        this.controladorPrincipal = controladorInicial;
     }
     
     private DefaultListModel configurarListaComandas() {

@@ -1,6 +1,7 @@
 
 package gerencia.controller;
 
+import atendimento.controller.ControladorComandas;
 import atendimento.controller.ControladorMesas;
 import gerencia.model.Estabelecimento;
 import gerencia.view.TelaEscolhaPerfil;
@@ -13,6 +14,7 @@ public class ControladorPrincipal {
     private TelaEscolhaPerfil telaEscolhaPerfil;
     private ControladorEstabelecimento controladorEstabelecimento;
     private ControladorMesas controladorMesas;
+    private ControladorComandas controladorComandas;
     
     public ControladorPrincipal(TelaInicial telaInicial){
         this.telaInicial = telaInicial;
@@ -70,27 +72,31 @@ public class ControladorPrincipal {
         } else if(Estabelecimento.foiConfigurado() && (Estabelecimento.getInstance().getCardapio() == null || Estabelecimento.getInstance().getCardapio().getItens().isEmpty())){
             telaInicial.mostrarAvisoCardapioNaoConfigurado();
             return;
-        }
-        
-        else if (Estabelecimento.getInstance().getPerfilEmUso() == null) {
+        } else {
             abrirTelaEscolhaPerfil();
-            return;
-        } else if (Estabelecimento.foiConfigurado() && (Estabelecimento.getInstance().getPerfilEmUso() != null && Estabelecimento.getInstance().getCardapio() != null)){
-            controladorMesas = new ControladorMesas(this);
-            telaInicial.setVisible(false);
-            controladorMesas.abrirTela();
         }
     }
 
     public void escolherPerfil(TipoPerfil tipo) {
         Estabelecimento.getInstance().setPerfilEmUso(tipo);
-        controladorMesas = new ControladorMesas(this);
-        telaInicial.setVisible(false);
-        telaEscolhaPerfil.setVisible(false);
-        controladorMesas.abrirTela();
+        abrirTelaParaPerfilEscolhido(tipo);
     }   
 
     private void abrirTelaEscolhaPerfil() {
         this.telaEscolhaPerfil.setVisible(true);
+    }
+
+    private void abrirTelaParaPerfilEscolhido(TipoPerfil perfilEmUso) {
+        if (perfilEmUso == TipoPerfil.GARCOM){
+            controladorMesas = new ControladorMesas(this);
+            telaInicial.setVisible(false);
+            telaEscolhaPerfil.setVisible(false);
+            controladorMesas.abrirTela();
+        } else{
+            controladorComandas = new ControladorComandas(this);
+            telaInicial.setVisible(false);
+            telaEscolhaPerfil.setVisible(false);
+            controladorComandas.abrirTela();
+        } 
     }
 }

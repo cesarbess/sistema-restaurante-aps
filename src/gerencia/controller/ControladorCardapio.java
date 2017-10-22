@@ -16,7 +16,8 @@ public class ControladorCardapio {
     private ControladorEstabelecimento controladorEstabelecimento;
     private ControladorPrincipal controladorPrincipal;
     
-    public ControladorCardapio(){
+    public ControladorCardapio(ControladorPrincipal controladorPrincipal){
+        this.controladorPrincipal = controladorPrincipal;
         telaCardapio = new TelaCardapio(this); 
         telaItem = new TelaItem(this);
     }
