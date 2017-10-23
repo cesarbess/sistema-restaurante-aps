@@ -213,24 +213,14 @@ public class TelaMesas extends javax.swing.JFrame {
         if(owner.mesaLivre(Integer.parseInt(mesaSelecionadaLabel.getName()))){
             boolean sucesso = owner.ocuparMesa(Integer.parseInt(mesaSelecionadaLabel.getName()));
             if (sucesso){
-                for(JButton button : botoesMesa){
-                    if(button.getName().equals(mesaSelecionadaLabel.getName())){
-                        button.setBackground(Color.red);
-                        btnOcuparMesa.setText("Liberar Mesa");
-                    }
-                }
+               alterarCorBotaoMesa(mesaSelecionadaLabel.getName(), true);
             } else {
                 JOptionPane.showMessageDialog(rootPane, "Não foi possível localizar a mesa");
             }
         } else {
             boolean sucesso = owner.liberarMesa(Integer.parseInt(mesaSelecionadaLabel.getName()));
             if (sucesso){
-                for(JButton button : botoesMesa){
-                    if(button.getName().equals(mesaSelecionadaLabel.getName())){
-                        button.setBackground(Color.green);
-                        btnOcuparMesa.setText("Ocupar Mesa");
-                    }
-                }
+                alterarCorBotaoMesa(mesaSelecionadaLabel.getName(), false);
             } else {
                 JOptionPane.showMessageDialog(rootPane, "Não foi possível liberar a mesa, certifique-se de que a comanda não possui nenhum item pendente na cozinha");
             }
@@ -301,5 +291,19 @@ public class TelaMesas extends javax.swing.JFrame {
     
     public Integer getIdMesaSelecionada(){
         return Integer.parseInt(mesaSelecionadaLabel.getName());
+    }
+    
+    public void alterarCorBotaoMesa(String idMesa, boolean ocupando){
+        for(JButton button : botoesMesa){
+            if(button.getName().equals(idMesa)){
+                if(ocupando){
+                    button.setBackground(Color.red);
+                    btnOcuparMesa.setText("Liberar mesa");
+                } else {
+                    button.setBackground(Color.green);
+                    btnOcuparMesa.setText("Ocupar mesa");
+                }
+            }
+        }
     }
 }

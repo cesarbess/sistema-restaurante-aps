@@ -160,5 +160,7 @@ public class ControladorMesas {
         //PRECISA CHECAR SE A COMANDA POSSUI ITENS ATIVO NA COZINHA
         Mesa mesa = Estabelecimento.getInstance().getMesaCom(idMesaSelecionada);
         mesa.setComanda(null);
+        mesa.setEstaLivre(true);
+        this.telaMesas.alterarCorBotaoMesa(mesa.getId().toString(), false);
     }
 }
