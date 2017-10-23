@@ -237,7 +237,10 @@ public class TelaMesas extends javax.swing.JFrame {
 
     private void btnCriarComandaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCriarComandaActionPerformed
         boolean mesaPossuiComanda = owner.mesaPossuiComanda(getIdMesaSelecionada());
-        if(mesaPossuiComanda){
+        boolean mesaEstaLivre = owner.mesaLivre(getIdMesaSelecionada());
+        if(!mesaPossuiComanda && mesaEstaLivre){
+            JOptionPane.showMessageDialog(rootPane, "Você deve marcar esta mesa como Ocupada antes de criar uma comanda para ela");
+        } else if(mesaPossuiComanda){
             JOptionPane.showMessageDialog(rootPane, "Esta mesa já possui comanda");
         } else {
             owner.abrirTelaGerirComanda();
