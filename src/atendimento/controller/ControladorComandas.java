@@ -108,4 +108,9 @@ public class ControladorComandas {
         comandaModel = configurarListaComandas();
         telaComandas.setarModeloLista(comandaModel);
     }
+
+    public boolean comandaPossuiItemQueExigePreparo(Integer numeroMesaSelecionada) {
+        Comanda comanda = Estabelecimento.getInstance().getMesaCom(numeroMesaSelecionada).getComanda();
+        return comanda.possuiItensQueExigePreparo();
+    }
 }

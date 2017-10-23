@@ -206,10 +206,14 @@ public class TelaComandas extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(rootPane, "Selecione uma comanda para enviar a cozinha");
         } else {
             Integer numeroMesaSelecionada = getIdComandaSelecionada();
-            if (owner.enviarComandaACozinha(numeroMesaSelecionada)){
+            if(owner.comandaPossuiItemQueExigePreparo(numeroMesaSelecionada)){
+                if (owner.enviarComandaACozinha(numeroMesaSelecionada)){
                 JOptionPane.showMessageDialog(rootPane, "Os itens pendentes da comanda foram enviados a cozinha");
             } else {
-                JOptionPane.showMessageDialog(rootPane, "A comanda não tinha nenhum item pendente a ser enviado a cozinha");
+                JOptionPane.showMessageDialog(rootPane, "A comanda não tem nenhum item pendente a ser enviado a cozinha");
+                }
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "A comanda não tem nenhum item que exige preparo");
             }
         }
     }//GEN-LAST:event_enviarCozinhaBtnActionPerformed

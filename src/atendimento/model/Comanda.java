@@ -43,4 +43,13 @@ public class Comanda {
         }
         return false;
     }
+
+    public boolean possuiItensQueExigePreparo() {
+         for(ItemCardapio item : this.itensPedido){
+             if(item.isExigePreparo()){
+                 return true;
+             }
+         }
+         return false;
+    }
 }
