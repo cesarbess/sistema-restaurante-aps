@@ -74,7 +74,9 @@ public class ControladorMesas {
     public boolean liberarMesa(int idMesa) {
         for(Mesa mesa : Estabelecimento.getInstance().getMesas()){
            if(mesa.getId().equals(idMesa) && !mesa.isEstaLivre()){
-               //TODO checar se comanda esta ativa
+               if (mesa.getComanda() != null && mesa.possuiComandaAtivaNaCozinha()){
+                   return false;
+               }
                mesa.setEstaLivre(true);
                return true;
            } else if (mesa.getId().equals(idMesa) && mesa.isEstaLivre()){

@@ -2,6 +2,7 @@
 package atendimento.model;
 
 import gerencia.model.ItemCardapio;
+import gerencia.model.StatusItem;
 import java.util.ArrayList;
 
 public class Comanda {
@@ -32,5 +33,14 @@ public class Comanda {
 
     public String getDescrição() {
         return "Comanda da mesa: " + this.mesa.getId();
+    }
+
+    boolean possuiItemAtivoNaCozinha() {
+        for(ItemCardapio item : this.itensPedido){
+            if (item.getStatus() == StatusItem.EM_ESPERA || item.getStatus() == StatusItem.EM_PREPARO || item.getStatus() == StatusItem.PRONTO){
+                return true;
+            }
+        }
+        return false;
     }
 }

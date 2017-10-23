@@ -39,4 +39,8 @@ public class Mesa {
     public void setId(Integer id) {
         this.id = id;
     }
+
+    public boolean possuiComandaAtivaNaCozinha() {
+        return this.comanda.possuiItemAtivoNaCozinha();
+    }
 }

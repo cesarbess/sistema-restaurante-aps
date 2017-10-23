@@ -231,6 +231,8 @@ public class TelaMesas extends javax.swing.JFrame {
                         btnOcuparMesa.setText("Ocupar Mesa");
                     }
                 }
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Não foi possível liberar a mesa, certifique-se de que a comanda não possui nenhum item pendente na cozinha");
             }
         }
     }//GEN-LAST:event_btnOcuparMesaActionPerformed
