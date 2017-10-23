@@ -194,5 +194,4 @@ public class TelaGerirComanda extends javax.swing.JFrame {
     public void setComandaListModel(DefaultListModel comandaModel) {
         this.itensComanda.setModel(comandaModel);
     }
-
 }

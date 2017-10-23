@@ -233,9 +233,9 @@ public class TelaMesas extends javax.swing.JFrame {
         if(!mesaPossuiComanda && mesaEstaLivre){
             JOptionPane.showMessageDialog(rootPane, "Você deve marcar esta mesa como Ocupada antes de criar uma comanda para ela");
         } else if(mesaPossuiComanda){
-            JOptionPane.showMessageDialog(rootPane, "Esta mesa já possui comanda");
+            owner.abrirTelaEdicaoComanda(getIdMesaSelecionada());
         } else {
-            owner.abrirTelaGerirComanda();
+            owner.abrirTelaCriarComanda();
         }
     }//GEN-LAST:event_btnCriarComandaActionPerformed
 
@@ -280,6 +280,11 @@ public class TelaMesas extends javax.swing.JFrame {
                     } else {
                         btnOcuparMesa.setText("Ocupar Mesa");
                     }
+                    if(button.getBackground().equals(Color.red) && owner.mesaPossuiComanda(Integer.parseInt(button.getName()))){
+                        setModoEdicao(true);
+                    } else {
+                        setModoEdicao(false);
+                    }
                 }
         });
             botoesMesa.add(button);
@@ -306,4 +311,13 @@ public class TelaMesas extends javax.swing.JFrame {
             }
         }
     }
+    
+    public void setModoEdicao(boolean editando){
+        if (editando){
+            btnCriarComanda.setText("Editar Comanda");
+        } else {
+             btnCriarComanda.setText("Criar Comanda");
+        }
+    }
+    
 }

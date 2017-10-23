@@ -86,8 +86,9 @@ public class ControladorMesas {
         return false;
     }
 
-    public void abrirTelaGerirComanda() {
+    public void abrirTelaCriarComanda() {
         this.telaGerirComanda.setVisible(true);
+        this.telaGerirComanda.setComandaListModel(new DefaultListModel());
         atualizarCardapioNaTela();
     }
     
@@ -148,6 +149,7 @@ public class ControladorMesas {
         
         Estabelecimento.getInstance().ocuparMesa(idMesa, novaComanda);
         telaGerirComanda.setVisible(false);
+        telaMesas.setModoEdicao(true);
         zerarComanda();
     }
 
@@ -162,5 +164,24 @@ public class ControladorMesas {
         mesa.setComanda(null);
         mesa.setEstaLivre(true);
         this.telaMesas.alterarCorBotaoMesa(mesa.getId().toString(), false);
+    }
+
+    public void abrirTelaEdicaoComanda(Integer idMesaSelecionada) {
+        this.telaGerirComanda.setComandaListModel(this.getItensComandaModel(idMesaSelecionada));
+        atualizarCardapioNaTela();
+        this.telaGerirComanda.setVisible(true);
+    }
+    
+    private DefaultListModel getItensComandaModel(Integer mesaID){
+        Comanda comanda = Estabelecimento.getInstance().getMesaCom(mesaID).getComanda();
+        DefaultListModel model = new DefaultListModel();
+        for(int i = 0; i < comanda.getItensPedido().size(); i++){
+            if(comanda.getItensPedido().get(i).isExigePreparo()){
+                model.add(i, comanda.getItensPedido().get(i).getDescricao()+ "   " + "(Exige preparo)");
+            } else{
+                model.add(i, comanda.getItensPedido().get(i).getDescricao());    
+            }
+        }
+        return model;
     }
 }
