@@ -35,7 +35,7 @@ public class Comanda {
         return "Comanda da mesa: " + this.mesa.getId();
     }
 
-    boolean possuiItemAtivoNaCozinha() {
+    public boolean possuiItemAtivoNaCozinha() {
         for(ItemCardapio item : this.itensPedido){
             if (item.getStatus() == StatusItem.EM_ESPERA || item.getStatus() == StatusItem.EM_PREPARO || item.getStatus() == StatusItem.PRONTO){
                 return true;
@@ -51,5 +51,14 @@ public class Comanda {
              }
          }
          return false;
+    }
+
+    public boolean possuiTodosItensEntregues() {
+        for(ItemCardapio item : this.itensPedido){
+             if(item.getStatus() != StatusItem.ENTREGUE){
+                 return false;
+             }
+         }
+         return true;
     }
 }

@@ -1,7 +1,13 @@
 
 package gerencia.controller;
 
+import atendimento.model.Comanda;
+import atendimento.model.Mesa;
+import gerencia.model.Estabelecimento;
 import gerencia.view.TelaRelatorio;
+import java.util.ArrayList;
+import java.util.Collection;
+import javax.swing.DefaultListModel;
 
 public class ControladorRelatorio {
     
@@ -44,5 +50,49 @@ public class ControladorRelatorio {
     public void setControladorCardapio(ControladorCardapio controladorCardapio) {
         this.controladorCardapio = controladorCardapio;
     }
-    
+
+    public DefaultListModel gerarRelatorio(boolean naCozinha, boolean entregue) {
+        ArrayList<Comanda> comandas = new ArrayList<>();
+        if(naCozinha) {
+            comandas.addAll(gerarRelatorioComandasCozinha());
+        }
+        if(entregue) {
+            comandas.addAll(gerarRelatorioEntregue());
+        }
+        
+        DefaultListModel model = new DefaultListModel();
+        if(comandas.size()>=0){
+            for(int i = 0; i < comandas.size(); i++){
+               model.add(i, comandas.get(i).getDescrição());
+            }
+            return model;
+        }
+        return model;
+    }
+
+    private ArrayList<Comanda> gerarRelatorioComandasCozinha() {
+        ArrayList<Comanda> comandas = new ArrayList<>();
+        
+        for(Mesa mesa : Estabelecimento.getInstance().getMesas()){
+            if(mesa.getComanda() != null && mesa.getComanda().getItensPedido() != null){
+                if(mesa.getComanda().possuiItemAtivoNaCozinha()){
+                    comandas.add(mesa.getComanda());
+                }
+            }
+        }
+        return comandas;
+    }
+
+    private ArrayList<Comanda> gerarRelatorioEntregue() {
+        ArrayList<Comanda> comandas = new ArrayList<>();
+        
+        for(Mesa mesa : Estabelecimento.getInstance().getMesas()){
+            if(mesa.getComanda() != null && mesa.getComanda().getItensPedido() != null){
+                if(mesa.getComanda().possuiTodosItensEntregues()){
+                    comandas.add(mesa.getComanda());
+                }
+            }
+        }
+        return comandas;
+    }
 }

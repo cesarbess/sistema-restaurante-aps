@@ -2,6 +2,7 @@
 package gerencia.view;
 
 import gerencia.controller.ControladorRelatorio;
+import javax.swing.JOptionPane;
 
 public class TelaRelatorio extends javax.swing.JFrame {
 
@@ -26,7 +27,6 @@ public class TelaRelatorio extends javax.swing.JFrame {
         listaRelatorios = new javax.swing.JList<>();
         jPanel3 = new javax.swing.JPanel();
         gerarBtn = new javax.swing.JButton();
-        comandasCanceladas = new javax.swing.JCheckBox();
         comandasEntregues = new javax.swing.JCheckBox();
         comandasCozinha = new javax.swing.JCheckBox();
         sairBtn = new javax.swing.JButton();
@@ -59,7 +59,7 @@ public class TelaRelatorio extends javax.swing.JFrame {
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Relatório"));
 
         listaRelatorios.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Comanda 1", "Comanda 2 ", "Comanda 3 ", "Comanda 4  " };
+            String[] strings = { " " };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
@@ -85,11 +85,9 @@ public class TelaRelatorio extends javax.swing.JFrame {
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Opções\n"));
 
         gerarBtn.setText("Gerar");
-
-        comandasCanceladas.setText("Comandas cancelados");
-        comandasCanceladas.addActionListener(new java.awt.event.ActionListener() {
+        gerarBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                comandasCanceladasActionPerformed(evt);
+                gerarBtnActionPerformed(evt);
             }
         });
 
@@ -111,21 +109,18 @@ public class TelaRelatorio extends javax.swing.JFrame {
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(24, 24, 24)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(comandasCanceladas)
                             .addComponent(comandasCozinha)
                             .addComponent(comandasEntregues)))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(38, 38, 38)
+                        .addGap(39, 39, 39)
                         .addComponent(gerarBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(11, Short.MAX_VALUE))
+                .addContainerGap(13, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(29, 29, 29)
                 .addComponent(comandasCozinha)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(comandasCanceladas)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(comandasEntregues)
                 .addGap(18, 18, 18)
@@ -215,10 +210,6 @@ public class TelaRelatorio extends javax.swing.JFrame {
         owner.abrirTelaCardapio();
     }//GEN-LAST:event_btnCardapioActionPerformed
 
-    private void comandasCanceladasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comandasCanceladasActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_comandasCanceladasActionPerformed
-
     private void comandasCozinhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comandasCozinhaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_comandasCozinhaActionPerformed
@@ -227,12 +218,22 @@ public class TelaRelatorio extends javax.swing.JFrame {
         owner.sair();
     }//GEN-LAST:event_sairBtnActionPerformed
 
+    private void gerarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gerarBtnActionPerformed
+       if(!comandasCozinha.isSelected() && !comandasEntregues.isSelected()) {
+           JOptionPane.showMessageDialog(rootPane, "Por favor selecione pelo menos uma opção");
+       } else {
+           listaRelatorios.setModel(owner.gerarRelatorio(comandasCozinha.isSelected(), comandasEntregues.isSelected()));
+            if(listaRelatorios.getModel().getSize() == 0) {
+                JOptionPane.showMessageDialog(rootPane, "Não existe nenhuma comanda com as opções selecionadas");
+            }
+       }
+    }//GEN-LAST:event_gerarBtnActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCardapio;
     private javax.swing.JButton btnEstabelecimento;
     private javax.swing.JButton btnRelatorio;
-    private javax.swing.JCheckBox comandasCanceladas;
     private javax.swing.JCheckBox comandasCozinha;
     private javax.swing.JCheckBox comandasEntregues;
     private javax.swing.JButton gerarBtn;
