@@ -64,11 +64,11 @@
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
+                              <Component id="statusLabel" max="32767" attributes="0"/>
                           </Group>
-                          <Component id="jButton1" max="32767" attributes="0"/>
-                          <Component id="sairBtn" alignment="0" max="32767" attributes="0"/>
-                          <Component id="cancelarItemBtn" alignment="0" max="32767" attributes="0"/>
+                          <Component id="btnAvancarStatus" max="32767" attributes="0"/>
+                          <Component id="btnSair" alignment="0" max="32767" attributes="0"/>
+                          <Component id="btnCancelarPedido" alignment="0" max="32767" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -85,16 +85,16 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="jScrollPane1" min="-2" pref="275" max="-2" attributes="0"/>
                   <Group type="102" attributes="0">
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="jLabel2" max="32767" attributes="0"/>
+                          <Component id="statusLabel" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnAvancarStatus" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="cancelarItemBtn" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnCancelarPedido" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="sairBtn" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnSair" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace pref="33" max="32767" attributes="0"/>
@@ -115,7 +115,7 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
-        <Component class="javax.swing.JList" name="jList1">
+        <Component class="javax.swing.JList" name="listaItens">
           <Properties>
             <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.editors2.ListModelEditor">
               <StringArray count="2">
@@ -135,25 +135,31 @@
         <Property name="text" type="java.lang.String" value="Status:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton1">
+    <Component class="javax.swing.JButton" name="btnAvancarStatus">
       <Properties>
         <Property name="text" type="java.lang.String" value="Marcar como pronto"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAvancarStatusActionPerformed"/>
+      </Events>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel3">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Em preparo"/>
-      </Properties>
+    <Component class="javax.swing.JLabel" name="statusLabel">
     </Component>
-    <Component class="javax.swing.JButton" name="sairBtn">
+    <Component class="javax.swing.JButton" name="btnSair">
       <Properties>
         <Property name="text" type="java.lang.String" value="Sair"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSairActionPerformed"/>
+      </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="cancelarItemBtn">
+    <Component class="javax.swing.JButton" name="btnCancelarPedido">
       <Properties>
         <Property name="text" type="java.lang.String" value="Cancelar pedido"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCancelarPedidoActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

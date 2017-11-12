@@ -4,6 +4,7 @@ package atendimento.controller;
 import atendimento.model.Comanda;
 import atendimento.model.Mesa;
 import atendimento.view.TelaComandas;
+import atendimento.view.TelaStatusItens;
 import atendimento.view.TelaTrocarMesa;
 import gerencia.controller.ControladorPrincipal;
 import gerencia.model.Estabelecimento;
@@ -16,6 +17,8 @@ public class ControladorComandas {
     
     private TelaComandas telaComandas;
     private TelaTrocarMesa telaTrocarMesa;
+    private TelaStatusItens telaStatusItens;
+    
     private ControladorMesas controladorMesas;
     private ControladorPrincipal controladorPrincipal;
     
@@ -24,6 +27,7 @@ public class ControladorComandas {
     public ControladorComandas(ControladorPrincipal controladorPrincipal){
         this.telaComandas = new TelaComandas(this);
         this.telaTrocarMesa = new TelaTrocarMesa(this, Estabelecimento.getInstance().getQuantidadeMesas());
+        this.telaStatusItens = new TelaStatusItens(this);
         this.controladorPrincipal = controladorPrincipal;
     }
 
@@ -62,6 +66,24 @@ public class ControladorComandas {
         if(comandas.size()>=0){
             for(int i = 0; i < comandas.size(); i++){
                model.add(i, comandas.get(i).getDescrição());
+            }
+            return model;
+        }
+        return model;
+    }
+    
+    private DefaultListModel configurarListaItensComanda(Integer idMesa) {
+        ArrayList<ItemCardapio> itens = new ArrayList<>();
+        Mesa mesa = Estabelecimento.getInstance().getMesaCom(idMesa);
+        if (mesa.getComanda() != null && mesa.getComanda().getItensPedido() != null) {
+            for(ItemCardapio item : mesa.getComanda().getItensPedido()) {
+                itens.add(item);
+            }
+        }                
+        DefaultListModel model = new DefaultListModel();
+        if(itens.size()>=0){
+            for(int i = 0; i < itens.size(); i++){
+               model.add(i, itens.get(i).getDescricao());
             }
             return model;
         }
@@ -113,4 +135,52 @@ public class ControladorComandas {
         Comanda comanda = Estabelecimento.getInstance().getMesaCom(numeroMesaSelecionada).getComanda();
         return comanda.possuiItensQueExigePreparo();
     }
+
+    public void abrirTelaStatusItens(Integer numeroMesaSelecionada) {
+        DefaultListModel modeloItens = configurarListaItensComanda(numeroMesaSelecionada);
+        telaStatusItens.setIdMesa(numeroMesaSelecionada);
+        telaStatusItens.setarModeloLista(modeloItens);
+        telaStatusItens.setVisible(true);
+    }
+
+    public void atualizarTelaParaItem(String nome, Integer idMesa) {
+        Mesa mesa = Estabelecimento.getInstance().getMesaCom(idMesa);
+        Comanda comanda = mesa.getComanda();
+        ItemCardapio item;
+        for(ItemCardapio i : comanda.getItensPedido()){
+            if(i.getDescricao().equals(nome)){
+                item = i;
+                String proximoStatus = item.getProximoStatus();
+                telaStatusItens.atualizarTelaParaStatus(item.getDescricaoStatus(), proximoStatus);
+                return;
+            }
+        }
+    }
+
+    public void avancarStatusItem(String itemSelecionado, Integer idMesa) {
+        Mesa mesa = Estabelecimento.getInstance().getMesaCom(idMesa);
+        Comanda comanda = mesa.getComanda();
+        for(ItemCardapio item : comanda.getItensPedido()){
+            if(item.getDescricao().equals(itemSelecionado)){
+                item.avancarStatus();
+                String proximoStatus = item.getProximoStatus();
+                telaStatusItens.atualizarTelaParaStatus(item.getDescricaoStatus(), proximoStatus);
+                return;
+            }
+        }
+    }
+
+    public void cancelarItem(String itemSelecionado, Integer idMesa) {
+        Mesa mesa = Estabelecimento.getInstance().getMesaCom(idMesa);
+        Comanda comanda = mesa.getComanda();
+        for(ItemCardapio item : comanda.getItensPedido()){
+            if(item.getDescricao().equals(itemSelecionado)){
+                item.setStatus(StatusItem.CANCELADO);
+                String proximoStatus = item.getProximoStatus();
+                telaStatusItens.atualizarTelaParaStatus(item.getDescricaoStatus(), proximoStatus);
+                return;
+            }
+        }
+    }
 }
+

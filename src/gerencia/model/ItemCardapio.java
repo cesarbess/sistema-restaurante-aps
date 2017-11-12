@@ -37,5 +37,69 @@ public class ItemCardapio {
         this.status = status;
     }
     
-    
+    public String getDescricaoStatus() {
+        if(this.status != null){
+            switch (this.status) {
+            case CANCELADO:
+                return "Cancelado";
+            case EM_ESPERA:
+                return "Em espera";
+            case EM_PREPARO:
+                return "Em preparo";
+            case ENTREGUE:
+                return "Entregue";
+            case PRONTO:
+                return "Pronto";
+            }
+        } else {
+            return "Sem status";
+        }
+        return "Sem status";
+    } 
+
+    public String getProximoStatus() {
+        if(this.status != null){
+            if (this.exigePreparo) {
+                switch (this.status) {
+                    case CANCELADO:
+                    return "Desabilitar";
+                    case EM_ESPERA:
+                    return "Em preparo";
+                    case EM_PREPARO:
+                    return "Pronto";
+                    case ENTREGUE:
+                    return "Desabilitar";
+                    case PRONTO:
+                    return "Entregue";
+                }
+            } else {
+                if (this.status == StatusItem.EM_ESPERA) {
+                    return "Entregue";
+                } else if (this.status == StatusItem.EM_ESPERA){
+                    return "Desabilitar";
+                }
+            }
+        }
+        return "Desabilitar";
+    }
+
+    public void avancarStatus() {
+        if(this.status != null){
+            switch (this.status) {
+            case CANCELADO:
+                break;
+            case EM_ESPERA:
+                this.setStatus(StatusItem.EM_PREPARO);
+                break;
+            case EM_PREPARO:
+                this.setStatus(StatusItem.PRONTO);
+                break;
+            case ENTREGUE:
+                break;
+            case PRONTO:
+                this.setStatus(StatusItem.ENTREGUE);
+                break;
+            }
+        }
+    }
 }

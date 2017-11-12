@@ -74,6 +74,11 @@ public class TelaComandas extends javax.swing.JFrame {
 
         trocarStatusBtn.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
         trocarStatusBtn.setText("Trocar Status");
+        trocarStatusBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                trocarStatusBtnActionPerformed(evt);
+            }
+        });
 
         trocarMesaBtn.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
         trocarMesaBtn.setText("Trocar Mesa");
@@ -217,6 +222,15 @@ public class TelaComandas extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_enviarCozinhaBtnActionPerformed
+
+    private void trocarStatusBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_trocarStatusBtnActionPerformed
+        if(listaComandas.isSelectionEmpty()){
+            JOptionPane.showMessageDialog(rootPane, "Selecione uma comanda para trocar o status dos itens");
+        } else {
+            Integer numeroMesaSelecionada = getIdComandaSelecionada();
+            owner.abrirTelaStatusItens(numeroMesaSelecionada);
+        }
+    }//GEN-LAST:event_trocarStatusBtnActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnComandas;
