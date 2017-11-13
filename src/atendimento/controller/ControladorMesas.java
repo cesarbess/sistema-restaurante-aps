@@ -49,6 +49,10 @@ public class ControladorMesas {
         controladorComandas = new ControladorComandas(controladorPrincipal);
         controladorComandas.setControladorMesas(this);
     }
+    
+    public void atualizarCorBotoesMesa(String idMesa, boolean ocupando) {
+        this.telaMesas.alterarCorBotaoMesa(idMesa, ocupando);
+    }
 
     public boolean mesaLivre(Integer idMesa) {
         for(Mesa mesa : Estabelecimento.getInstance().getMesas()){

@@ -200,7 +200,7 @@ public class TelaComandas extends javax.swing.JFrame {
 
     private void trocarMesaBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_trocarMesaBtnActionPerformed
         if(listaComandas.isSelectionEmpty()){
-            JOptionPane.showMessageDialog(rootPane, "Selecione uma comanda para enviar a cozinha");
+            JOptionPane.showMessageDialog(rootPane, "Selecione uma comanda para trocar a mesa");
         } else {
             owner.abrirTelaTrocarMesa();
         }

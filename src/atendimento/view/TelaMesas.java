@@ -77,7 +77,7 @@ public class TelaMesas extends javax.swing.JFrame {
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Opções\n"));
 
-        btnCriarComanda.setText("Criar comanda");
+        btnCriarComanda.setText("Criar Comanda");
         btnCriarComanda.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCriarComandaActionPerformed(evt);
@@ -92,7 +92,7 @@ public class TelaMesas extends javax.swing.JFrame {
         });
 
         btnCancelarComanda.setFont(new java.awt.Font("Lucida Grande", 0, 10)); // NOI18N
-        btnCancelarComanda.setText("Cancelar comanda");
+        btnCancelarComanda.setText("Cancelar Comanda");
         btnCancelarComanda.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCancelarComandaActionPerformed(evt);

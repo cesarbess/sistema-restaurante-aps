@@ -189,7 +189,7 @@
           <SubComponents>
             <Component class="javax.swing.JButton" name="btnCriarComanda">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Criar comanda"/>
+                <Property name="text" type="java.lang.String" value="Criar Comanda"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCriarComandaActionPerformed"/>
@@ -208,7 +208,7 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Lucida Grande" size="10" style="0"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Cancelar comanda"/>
+                <Property name="text" type="java.lang.String" value="Cancelar Comanda"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCancelarComandaActionPerformed"/>

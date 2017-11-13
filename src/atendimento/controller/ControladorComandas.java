@@ -114,10 +114,12 @@ public class ControladorComandas {
         Comanda comanda = mesaAntiga.getComanda();
         mesaAntiga.setComanda(null);
         mesaAntiga.setEstaLivre(true);
+        controladorMesas.atualizarCorBotoesMesa(idMesaSelecionada.toString(), false);
         Mesa novaMesa = Estabelecimento.getInstance().getMesaCom(idNovaMesa);
         novaMesa.setComanda(comanda);
         comanda.setMesa(novaMesa);
         novaMesa.setEstaLivre(false);
+        controladorMesas.atualizarCorBotoesMesa(idNovaMesa.toString(), true);
         atualizarLista();
         System.out.println("Troquei comanda da mesa " + mesaAntiga.getId() + " para a mesa: " + novaMesa.getId());
     }
