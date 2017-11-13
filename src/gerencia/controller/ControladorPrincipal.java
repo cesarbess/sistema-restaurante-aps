@@ -88,12 +88,16 @@ public class ControladorPrincipal {
 
     private void abrirTelaParaPerfilEscolhido(TipoPerfil perfilEmUso) {
         if (perfilEmUso == TipoPerfil.GARCOM){
-            controladorMesas = new ControladorMesas(this);
+            if(controladorMesas == null) {
+               controladorMesas = new ControladorMesas(this);
+            }
             telaInicial.setVisible(false);
             telaEscolhaPerfil.setVisible(false);
             controladorMesas.abrirTela();
         } else{
-            controladorComandas = new ControladorComandas(this);
+            if(controladorComandas == null) {
+                controladorComandas = new ControladorComandas(this);
+            }
             telaInicial.setVisible(false);
             telaEscolhaPerfil.setVisible(false);
             controladorComandas.abrirTela();

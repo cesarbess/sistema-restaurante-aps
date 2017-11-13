@@ -2,6 +2,7 @@
 package atendimento.view;
 
 import atendimento.controller.ControladorComandas;
+import gerencia.model.TipoPerfil;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
@@ -187,6 +188,14 @@ public class TelaStatusItens extends javax.swing.JFrame {
         } else {
             this.btnAvancarStatus.setEnabled(true);
             this.btnAvancarStatus.setText("Marcar como " + proximoStatus);
+        }
+    }
+
+    public void mostrarAvisoParaPerfilInvalido(TipoPerfil perfilEmUso, String nomeStatus) {
+        if(perfilEmUso == TipoPerfil.GARCOM) {
+            JOptionPane.showMessageDialog(rootPane, "Apenas o Cozinheiro pode marcar o status como: " +nomeStatus);
+        } else if (perfilEmUso == TipoPerfil.COZINHEIRO) {
+            JOptionPane.showMessageDialog(rootPane, "Apenas o Garçom pode marcar o status como: " +nomeStatus);
         }
     }
 }

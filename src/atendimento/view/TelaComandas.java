@@ -199,27 +199,35 @@ public class TelaComandas extends javax.swing.JFrame {
     }//GEN-LAST:event_sairBtnActionPerformed
 
     private void trocarMesaBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_trocarMesaBtnActionPerformed
-        if(listaComandas.isSelectionEmpty()){
+        if(owner.ehGarcom()) {
+            if(listaComandas.isSelectionEmpty()){
             JOptionPane.showMessageDialog(rootPane, "Selecione uma comanda para trocar a mesa");
+            } else {
+                owner.abrirTelaTrocarMesa();
+            }
         } else {
-            owner.abrirTelaTrocarMesa();
+            JOptionPane.showMessageDialog(rootPane, "Apenas o garçom pode trocar a mesa da comanda");
         }
     }//GEN-LAST:event_trocarMesaBtnActionPerformed
 
     private void enviarCozinhaBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enviarCozinhaBtnActionPerformed
-        if(listaComandas.isSelectionEmpty()){
-            JOptionPane.showMessageDialog(rootPane, "Selecione uma comanda para enviar a cozinha");
-        } else {
-            Integer numeroMesaSelecionada = getIdComandaSelecionada();
-            if(owner.comandaPossuiItemQueExigePreparo(numeroMesaSelecionada)){
-                if (owner.enviarComandaACozinha(numeroMesaSelecionada)){
-                JOptionPane.showMessageDialog(rootPane, "Os itens pendentes da comanda foram enviados a cozinha");
+        if(owner.ehGarcom()) {
+            if(listaComandas.isSelectionEmpty()){
+                JOptionPane.showMessageDialog(rootPane, "Selecione uma comanda para enviar a cozinha");
             } else {
-                JOptionPane.showMessageDialog(rootPane, "A comanda não tem nenhum item pendente a ser enviado a cozinha");
-                }
-            } else {
+                Integer numeroMesaSelecionada = getIdComandaSelecionada();
+                if(owner.comandaPossuiItemQueExigePreparo(numeroMesaSelecionada)){
+                    if (owner.enviarComandaACozinha(numeroMesaSelecionada)){
+                      JOptionPane.showMessageDialog(rootPane, "Os itens pendentes da comanda foram enviados a cozinha");
+                    } else {
+                      JOptionPane.showMessageDialog(rootPane, "A comanda não tem nenhum item pendente a ser enviado a cozinha");
+                    }
+                } else {
                 JOptionPane.showMessageDialog(rootPane, "A comanda não tem nenhum item que exige preparo");
+                }
             }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Apenas o garçom pode enviar itens a cozinha");
         }
     }//GEN-LAST:event_enviarCozinhaBtnActionPerformed
 

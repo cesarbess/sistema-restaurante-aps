@@ -10,6 +10,7 @@ import gerencia.controller.ControladorPrincipal;
 import gerencia.model.Estabelecimento;
 import gerencia.model.ItemCardapio;
 import gerencia.model.StatusItem;
+import gerencia.model.TipoPerfil;
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
 
@@ -154,7 +155,7 @@ public class ControladorComandas {
                 item = i;
                 String proximoStatus = item.getProximoStatus();
                 telaStatusItens.atualizarTelaParaStatus(item.getDescricaoStatus(), proximoStatus);
-                return;
+                break;
             }
         }
     }
@@ -164,10 +165,20 @@ public class ControladorComandas {
         Comanda comanda = mesa.getComanda();
         for(ItemCardapio item : comanda.getItensPedido()){
             if(item.getDescricao().equals(itemSelecionado)){
+                String proximo = item.getProximoStatus();
+                if(proximo.equals("Em preparo") || proximo.equals("Pronto")) {
+                    if(ehGarcom()){
+                        telaStatusItens.mostrarAvisoParaPerfilInvalido(Estabelecimento.getInstance().getPerfilEmUso(), proximo);
+                        break;
+                    }
+                } else if(proximo.equals("Entregue") && !ehGarcom()) {
+                    telaStatusItens.mostrarAvisoParaPerfilInvalido(Estabelecimento.getInstance().getPerfilEmUso(), proximo);
+                    break;
+                }
                 item.avancarStatus();
                 String proximoStatus = item.getProximoStatus();
                 telaStatusItens.atualizarTelaParaStatus(item.getDescricaoStatus(), proximoStatus);
-                return;
+                break;
             }
         }
     }
@@ -180,9 +191,13 @@ public class ControladorComandas {
                 item.setStatus(StatusItem.CANCELADO);
                 String proximoStatus = item.getProximoStatus();
                 telaStatusItens.atualizarTelaParaStatus(item.getDescricaoStatus(), proximoStatus);
-                return;
+                break;
             }
         }
+    }
+
+    public boolean ehGarcom() {
+        return Estabelecimento.getInstance().getPerfilEmUso() == TipoPerfil.GARCOM;
     }
 }
 
