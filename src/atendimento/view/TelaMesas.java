@@ -210,7 +210,7 @@ public class TelaMesas extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSairActionPerformed
 
     private void btnOcuparMesaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOcuparMesaActionPerformed
-        if(owner.mesaLivre(Integer.parseInt(mesaSelecionadaLabel.getName()))){
+        if(owner.isMesaLivre(Integer.parseInt(mesaSelecionadaLabel.getName()))){
             boolean sucesso = owner.ocuparMesa(Integer.parseInt(mesaSelecionadaLabel.getName()));
             if (sucesso){
                alterarCorBotaoMesa(mesaSelecionadaLabel.getName(), true);
@@ -229,7 +229,7 @@ public class TelaMesas extends javax.swing.JFrame {
 
     private void btnCriarComandaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCriarComandaActionPerformed
         boolean mesaPossuiComanda = owner.mesaPossuiComanda(getIdMesaSelecionada());
-        boolean mesaEstaLivre = owner.mesaLivre(getIdMesaSelecionada());
+        boolean mesaEstaLivre = owner.isMesaLivre(getIdMesaSelecionada());
         if(!mesaPossuiComanda && mesaEstaLivre){
             JOptionPane.showMessageDialog(rootPane, "Você deve marcar esta mesa como Ocupada antes de criar uma comanda para ela");
         } else if(mesaPossuiComanda){

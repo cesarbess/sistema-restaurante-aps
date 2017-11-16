@@ -54,7 +54,7 @@ public class ControladorMesas {
         this.telaMesas.alterarCorBotaoMesa(idMesa, ocupando);
     }
 
-    public boolean mesaLivre(Integer idMesa) {
+    public boolean isMesaLivre(Integer idMesa) {
         for(Mesa mesa : Estabelecimento.getInstance().getMesas()){
            if(mesa.getId().equals(idMesa) && !mesa.isEstaLivre()){
                return false;
@@ -80,9 +80,14 @@ public class ControladorMesas {
            if(mesa.getId().equals(idMesa) && !mesa.isEstaLivre()){
                if (mesa.getComanda() != null && mesa.possuiComandaAtivaNaCozinha()){
                    return false;
+               } else if(mesa.getComanda() != null && !mesa.possuiComandaAtivaNaCozinha()){
+                   mesa.setComanda(null);
+                   mesa.setEstaLivre(true);
+                   return true;
+               } else {
+                   mesa.setEstaLivre(true);
+                   return true;
                }
-               mesa.setEstaLivre(true);
-               return true;
            } else if (mesa.getId().equals(idMesa) && mesa.isEstaLivre()){
                return false;
            }
