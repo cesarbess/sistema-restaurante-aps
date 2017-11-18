@@ -303,10 +303,10 @@ public class TelaMesas extends javax.swing.JFrame {
             if(button.getName().equals(idMesa)){
                 if(ocupando){
                     button.setBackground(Color.red);
-                    btnOcuparMesa.setText("Liberar mesa");
+                    btnOcuparMesa.setText("Liberar Mesa");
                 } else {
                     button.setBackground(Color.green);
-                    btnOcuparMesa.setText("Ocupar mesa");
+                    btnOcuparMesa.setText("Ocupar Mesa");
                 }
             }
         }

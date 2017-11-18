@@ -151,7 +151,7 @@ public class ControladorComandas {
         Comanda comanda = mesa.getComanda();
         ItemCardapio item;
         for(ItemCardapio i : comanda.getItensPedido()){
-            if(i.getDescricao().equals(nome)){
+            if(i.getDescricao().contains(nome)){
                 item = i;
                 String proximoStatus = item.getProximoStatus();
                 telaStatusItens.atualizarTelaParaStatus(item.getDescricaoStatus(), proximoStatus);

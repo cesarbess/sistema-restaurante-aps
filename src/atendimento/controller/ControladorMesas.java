@@ -8,6 +8,7 @@ import gerencia.model.Estabelecimento;
 import atendimento.model.Mesa;
 import atendimento.view.TelaGerirComanda;
 import gerencia.model.ItemCardapio;
+import gerencia.model.StatusItem;
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
 
@@ -151,6 +152,9 @@ public class ControladorMesas {
         for(String item : listaItensComanda){
             for(ItemCardapio itemCardapio : Estabelecimento.getInstance().getCardapio().getItens()){
                 if(item.contains(itemCardapio.getDescricao())){
+                    if(!itemCardapio.isExigePreparo()){
+                        itemCardapio.setStatus(StatusItem.PRONTO);
+                    }
                     novaComanda.adicionarItemNaComanda(itemCardapio);
                 }
             }

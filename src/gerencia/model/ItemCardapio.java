@@ -73,9 +73,9 @@ public class ItemCardapio {
                     return "Entregue";
                 }
             } else {
-                if (this.status == StatusItem.EM_ESPERA) {
+                if (this.status == StatusItem.PRONTO) {
                     return "Entregue";
-                } else if (this.status == StatusItem.EM_ESPERA){
+                } else if (this.status == StatusItem.ENTREGUE){
                     return "Desabilitar";
                 }
             }
