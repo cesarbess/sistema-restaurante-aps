@@ -221,6 +221,7 @@ public class TelaMesas extends javax.swing.JFrame {
             boolean sucesso = owner.liberarMesa(Integer.parseInt(mesaSelecionadaLabel.getName()));
             if (sucesso){
                 alterarCorBotaoMesa(mesaSelecionadaLabel.getName(), false);
+                btnCriarComanda.setText("Criar Comanda");
             } else {
                 JOptionPane.showMessageDialog(rootPane, "Não foi possível liberar a mesa, certifique-se de que a comanda não possui nenhum item pendente na cozinha");
             }
@@ -243,6 +244,7 @@ public class TelaMesas extends javax.swing.JFrame {
         boolean mesaPossuiComanda = owner.mesaPossuiComanda(getIdMesaSelecionada());
         if(mesaPossuiComanda){
             owner.cancelarComanda(getIdMesaSelecionada());
+            btnCriarComanda.setText("Criar Comanda");
             JOptionPane.showMessageDialog(rootPane, "Comanda cancelada com sucesso");
         } else {
             JOptionPane.showMessageDialog(rootPane, "Esta mesa não possui comanda");
