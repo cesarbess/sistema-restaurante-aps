@@ -15,7 +15,8 @@ public class ControladorPrincipal {
     private ControladorEstabelecimento controladorEstabelecimento;
     private ControladorMesas controladorMesas;
     private ControladorComandas controladorComandas;
-    
+    public final String senha = "admin";
+            
     public ControladorPrincipal(TelaInicial telaInicial){
         this.telaInicial = telaInicial;
         this.telaEscolhaPerfil = new TelaEscolhaPerfil(this);

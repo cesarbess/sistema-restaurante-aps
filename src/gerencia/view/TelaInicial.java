@@ -87,7 +87,12 @@ public class TelaInicial extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void gerenciaBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gerenciaBtnActionPerformed
-        owner.entrarTelaGerencia();
+        String senhaDigitada = JOptionPane.showInputDialog("Digite a senha do Administrador: ");
+        if (senhaDigitada.equals(owner.senha)){
+            owner.entrarTelaGerencia();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Senha incorreta, contate o administrador do sistema");
+        }
     }//GEN-LAST:event_gerenciaBtnActionPerformed
 
     private void atendimentoBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_atendimentoBtnActionPerformed
