@@ -183,17 +183,21 @@ public class ControladorComandas {
         }
     }
 
-    public void cancelarItem(String itemSelecionado, Integer idMesa) {
+    public boolean cancelarItem(String itemSelecionado, Integer idMesa) {
         Mesa mesa = Estabelecimento.getInstance().getMesaCom(idMesa);
         Comanda comanda = mesa.getComanda();
         for(ItemCardapio item : comanda.getItensPedido()){
             if(item.getDescricao().equals(itemSelecionado)){
+                if(item.getStatus() == StatusItem.ENTREGUE){
+                    return false;
+                }
                 item.setStatus(StatusItem.CANCELADO);
                 String proximoStatus = item.getProximoStatus();
                 telaStatusItens.atualizarTelaParaStatus(item.getDescricaoStatus(), proximoStatus);
-                break;
+                return true;
             }
         }
+        return false;
     }
 
     public boolean ehGarcom() {
