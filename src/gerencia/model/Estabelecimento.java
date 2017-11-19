@@ -3,9 +3,10 @@ package gerencia.model;
 
 import atendimento.model.Comanda;
 import atendimento.model.Mesa;
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Estabelecimento {
+public class Estabelecimento implements Serializable {
 
     private String nome;
     private int quantidadeMesas;
@@ -23,6 +24,10 @@ public class Estabelecimento {
             instancia = new Estabelecimento();
         }
         return instancia;
+    }
+    
+    public static void setEstabelecimento(Estabelecimento est){
+        instancia = est;
     }
 
     public String getNome() {
@@ -77,7 +82,7 @@ public class Estabelecimento {
         this.perfilEmUso = perfilEmUso;
     }
     
-    public static boolean foiConfigurado(){
-        return instancia != null;
+    public boolean foiConfigurado(){
+        return this.nome != null && this.mesas != null;
     }
 }

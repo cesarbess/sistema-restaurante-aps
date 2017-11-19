@@ -22,10 +22,17 @@ public class ControladorMesas {
 
     private DefaultListModel comandaModel;
     private ArrayList<String> listaItensComanda;
+    private ArrayList<Integer> mesasOcupadas;
    
     public ControladorMesas(ControladorPrincipal controladorInicial) {
+        mesasOcupadas = new ArrayList<>();
+        for(Mesa mesa : Estabelecimento.getInstance().getMesas()){
+            if(!mesa.isEstaLivre()){
+                mesasOcupadas.add(mesa.getId());
+            }
+        }
         this.controladorPrincipal = controladorInicial;
-        this.telaMesas = new TelaMesas(this, Estabelecimento.getInstance().getQuantidadeMesas());
+        this.telaMesas = new TelaMesas(this, Estabelecimento.getInstance().getQuantidadeMesas(), mesasOcupadas);
         this.telaGerirComanda = new TelaGerirComanda(this);
         configurarControlador();
         comandaModel = new DefaultListModel();
@@ -68,6 +75,7 @@ public class ControladorMesas {
         for(Mesa mesa : Estabelecimento.getInstance().getMesas()){
            if(mesa.getId().equals(idMesa) && mesa.isEstaLivre()){
                mesa.setEstaLivre(false);
+               controladorPrincipal.salvarNoDisco();
                return true;
            } else if (mesa.getId().equals(idMesa) && !mesa.isEstaLivre()){
                return false;
@@ -84,9 +92,11 @@ public class ControladorMesas {
                } else if(mesa.getComanda() != null && !mesa.possuiComandaAtivaNaCozinha()){
                    mesa.setComanda(null);
                    mesa.setEstaLivre(true);
+                   controladorPrincipal.salvarNoDisco();
                    return true;
                } else {
                    mesa.setEstaLivre(true);
+                   controladorPrincipal.salvarNoDisco();
                    return true;
                }
            } else if (mesa.getId().equals(idMesa) && mesa.isEstaLivre()){
@@ -163,6 +173,7 @@ public class ControladorMesas {
         Estabelecimento.getInstance().ocuparMesa(idMesa, novaComanda);
         telaGerirComanda.setVisible(false);
         telaMesas.setModoEdicao(true);
+        controladorPrincipal.salvarNoDisco();
         zerarComanda();
     }
 
@@ -176,6 +187,7 @@ public class ControladorMesas {
         Mesa mesa = Estabelecimento.getInstance().getMesaCom(idMesaSelecionada);
         mesa.setComanda(null);
         mesa.setEstaLivre(true);
+        controladorPrincipal.salvarNoDisco();
         this.telaMesas.alterarCorBotaoMesa(mesa.getId().toString(), false);
     }
 

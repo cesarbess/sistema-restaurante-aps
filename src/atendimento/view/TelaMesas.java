@@ -14,11 +14,13 @@ public class TelaMesas extends javax.swing.JFrame {
 
     private ControladorMesas owner;
     private ArrayList<JButton> botoesMesa;
+    private ArrayList<Integer> mesasOcupadas;
     
-    public TelaMesas(ControladorMesas owner, int numeroMesas) {
+    public TelaMesas(ControladorMesas owner, int numeroMesas, ArrayList<Integer> mesasOcupadas) {
         initComponents();
         this.setLocationRelativeTo(null);
         this.owner = owner;
+        this.mesasOcupadas = mesasOcupadas;
         botoesMesa = new ArrayList<>();
         int linhas = Math.round(numeroMesas/3);
         GridLayout layout = new GridLayout(linhas, 3);
@@ -27,6 +29,10 @@ public class TelaMesas extends javax.swing.JFrame {
         
         //Começa com a mesa 1 selecionada
         mesaSelecionadaLabel.setName("1");
+        if(mesasOcupadas.contains(1)){
+            btnOcuparMesa.setText("Liberar Mesa");
+            btnCriarComanda.setText("Editar Comanda");
+        }
     }
     
     @SuppressWarnings("unchecked")
@@ -270,6 +276,9 @@ public class TelaMesas extends javax.swing.JFrame {
             button.setSize(113, 85);
             button.setBackground(Color.green);
             button.setName(new Integer(i+1).toString());
+            if(mesasOcupadas.contains(i+1)){
+                button.setBackground(Color.red);
+            }
             
             button.addActionListener(new ActionListener() {
                 @Override
@@ -320,6 +329,10 @@ public class TelaMesas extends javax.swing.JFrame {
         } else {
              btnCriarComanda.setText("Criar Comanda");
         }
+    }
+    
+    public void setMesasOcupadas(ArrayList<Integer> mesasOcupadas){
+        this.mesasOcupadas = mesasOcupadas;
     }
     
 }

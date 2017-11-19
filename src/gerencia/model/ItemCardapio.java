@@ -1,7 +1,9 @@
 
 package gerencia.model;
 
-public class ItemCardapio {
+import java.io.Serializable;
+
+public class ItemCardapio implements Serializable {
     
     private String descricao;
     private boolean exigePreparo;

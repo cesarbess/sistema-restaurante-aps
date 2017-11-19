@@ -1,7 +1,9 @@
 
 package atendimento.model;
 
-public class Mesa {
+import java.io.Serializable;
+
+public class Mesa implements Serializable {
     
     private boolean estaLivre;
     private Integer id;

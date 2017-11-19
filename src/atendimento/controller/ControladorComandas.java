@@ -101,6 +101,9 @@ public class ControladorComandas {
                 System.out.println("Alterado o status do item: " + item.getDescricao() + " para " + item.getStatus());
             }
         }
+        if (tinhaItensPendentes) {
+            controladorPrincipal.salvarNoDisco();
+        }
         return tinhaItensPendentes;
     }
 
@@ -121,6 +124,7 @@ public class ControladorComandas {
         comanda.setMesa(novaMesa);
         novaMesa.setEstaLivre(false);
         controladorMesas.atualizarCorBotoesMesa(idNovaMesa.toString(), true);
+        controladorPrincipal.salvarNoDisco();
         atualizarLista();
         System.out.println("Troquei comanda da mesa " + mesaAntiga.getId() + " para a mesa: " + novaMesa.getId());
     }
@@ -155,6 +159,7 @@ public class ControladorComandas {
                 item = i;
                 String proximoStatus = item.getProximoStatus();
                 telaStatusItens.atualizarTelaParaStatus(item.getDescricaoStatus(), proximoStatus);
+                controladorPrincipal.salvarNoDisco();
                 break;
             }
         }
@@ -177,6 +182,7 @@ public class ControladorComandas {
                 }
                 item.avancarStatus();
                 String proximoStatus = item.getProximoStatus();
+                controladorPrincipal.salvarNoDisco();
                 telaStatusItens.atualizarTelaParaStatus(item.getDescricaoStatus(), proximoStatus);
                 break;
             }
@@ -193,6 +199,7 @@ public class ControladorComandas {
                 }
                 item.setStatus(StatusItem.CANCELADO);
                 String proximoStatus = item.getProximoStatus();
+                controladorPrincipal.salvarNoDisco();
                 telaStatusItens.atualizarTelaParaStatus(item.getDescricaoStatus(), proximoStatus);
                 return true;
             }

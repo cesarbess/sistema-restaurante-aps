@@ -3,9 +3,10 @@ package atendimento.model;
 
 import gerencia.model.ItemCardapio;
 import gerencia.model.StatusItem;
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Comanda {
+public class Comanda implements Serializable {
     
     private ArrayList<ItemCardapio> itensPedido;
     private Mesa mesa;

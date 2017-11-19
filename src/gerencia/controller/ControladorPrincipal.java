@@ -7,6 +7,7 @@ import gerencia.model.Estabelecimento;
 import gerencia.view.TelaEscolhaPerfil;
 import gerencia.view.TelaInicial;
 import gerencia.model.TipoPerfil;
+import serializacao.Mapeador;
 
 public class ControladorPrincipal {
     
@@ -16,10 +17,13 @@ public class ControladorPrincipal {
     private ControladorMesas controladorMesas;
     private ControladorComandas controladorComandas;
     public final String senha = "admin";
+    public Mapeador mapeador;
             
     public ControladorPrincipal(TelaInicial telaInicial){
         this.telaInicial = telaInicial;
         this.telaEscolhaPerfil = new TelaEscolhaPerfil(this);
+        this.mapeador = new Mapeador("Estabelecimento");
+        carregarDoDisco();
     }
     
         public static void main(String args[]) {
@@ -67,10 +71,10 @@ public class ControladorPrincipal {
     }
 
     public void entrarTelaAtendimento() {
-        if (!Estabelecimento.foiConfigurado()) {
+        if (!Estabelecimento.getInstance().foiConfigurado()) {
             telaInicial.mostrarAvisoConfEstabelecimento();
             return;
-        } else if(Estabelecimento.foiConfigurado() && (Estabelecimento.getInstance().getCardapio() == null || Estabelecimento.getInstance().getCardapio().getItens().isEmpty())){
+        } else if(Estabelecimento.getInstance().foiConfigurado() && (Estabelecimento.getInstance().getCardapio() == null || Estabelecimento.getInstance().getCardapio().getItens().isEmpty())){
             telaInicial.mostrarAvisoCardapioNaoConfigurado();
             return;
         } else {
@@ -104,4 +108,14 @@ public class ControladorPrincipal {
             controladorComandas.abrirTela();
         } 
     }
+    
+    public void salvarNoDisco(){
+        mapeador.setCache(Estabelecimento.getInstance());
+        mapeador.persist();
+    }
+    
+    public void carregarDoDisco(){
+        mapeador.load();
+        Estabelecimento.setEstabelecimento(mapeador.getCache());
+    }  
 }

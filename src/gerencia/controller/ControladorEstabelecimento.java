@@ -5,7 +5,6 @@ import atendimento.model.Mesa;
 import gerencia.model.Cardapio;
 import gerencia.model.Estabelecimento;
 import gerencia.view.TelaEstabelecimento;
-import java.util.ArrayList;
 
 public class ControladorEstabelecimento {
     
@@ -19,6 +18,7 @@ public class ControladorEstabelecimento {
     public ControladorEstabelecimento(ControladorPrincipal controladorInicial) {
         this.controladorPrincipal = controladorInicial;
         telaEstabelecimento = new TelaEstabelecimento(this);
+        this.estabelecimento = Estabelecimento.getInstance();
         configurarControladores();
     }
 
@@ -34,7 +34,7 @@ public class ControladorEstabelecimento {
 
     public void abrirTela() {
         this.telaEstabelecimento.setVisible(true);
-        if (estabelecimento != null){
+        if (estabelecimento != null && (estabelecimento.getNome() != null && estabelecimento.getMesas() != null)){
             telaEstabelecimento.popularCampos(estabelecimento.getNome(), estabelecimento.getQuantidadeMesas());
         }
     }
@@ -49,7 +49,6 @@ public class ControladorEstabelecimento {
     }
 
     public void registrarEstabelecimento(String nome, Integer qntMesas) {
-        this.estabelecimento = Estabelecimento.getInstance();
         this.estabelecimento.setNome(nome);
         this.estabelecimento.setQuantidadeMesas(qntMesas);
         this.estabelecimento.setCardapio(new Cardapio());
@@ -59,6 +58,7 @@ public class ControladorEstabelecimento {
             this.estabelecimento.getMesas().add(mesa);
             System.out.println("Mesa com ID: " + mesa.getId() + "adicionada no array de mesas");
         }
+        controladorPrincipal.salvarNoDisco();
     }
 
     public void setControladorCardapio(ControladorCardapio controladorCardapio) {

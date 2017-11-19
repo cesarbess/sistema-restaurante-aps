@@ -1,7 +1,9 @@
 
 package gerencia.model;
 
-public enum TipoPerfil {
+import java.io.Serializable;
+
+public enum TipoPerfil implements Serializable {
     GARCOM,
     COZINHEIRO
 }

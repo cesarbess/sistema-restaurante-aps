@@ -71,6 +71,7 @@ public class ControladorCardapio {
         //OBS: O status do item começa com NULL antes de ser enviado a cozinha
         ItemCardapio item = new ItemCardapio(descricao, exigePreparo, null);     
         Estabelecimento.getInstance().getCardapio().inserirItemNoCardapio(item);
+        controladorPrincipal.salvarNoDisco();
         atualizarCardapioNaTela();
     }
 
@@ -101,11 +102,13 @@ public class ControladorCardapio {
 
     public void editarItem(int indiceItemSelecionado, String nome, boolean exigePreparo) {
         Estabelecimento.getInstance().getCardapio().editarItem(indiceItemSelecionado, nome, exigePreparo);
+        controladorPrincipal.salvarNoDisco();
         this.atualizarCardapioNaTela();
     }
 
     public void removerItem(int posicao) {
         Estabelecimento.getInstance().getCardapio().removerItemNa(posicao);
+        controladorPrincipal.salvarNoDisco();
         this.atualizarCardapioNaTela();
     }
     

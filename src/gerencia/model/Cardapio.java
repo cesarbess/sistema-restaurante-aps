@@ -1,9 +1,10 @@
 
 package gerencia.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Cardapio {
+public class Cardapio implements Serializable {
     
     private ArrayList<ItemCardapio> itens;
     
