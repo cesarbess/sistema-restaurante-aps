@@ -6,7 +6,6 @@ import atendimento.model.Mesa;
 import gerencia.model.Estabelecimento;
 import gerencia.view.TelaRelatorio;
 import java.util.ArrayList;
-import java.util.Collection;
 import javax.swing.DefaultListModel;
 
 public class ControladorRelatorio {
@@ -14,7 +13,7 @@ public class ControladorRelatorio {
     private TelaRelatorio telaRelatorio;
     private ControladorEstabelecimento controladorEstabelecimento;
     private ControladorCardapio controladorCardapio;
-    private ControladorPrincipal controladorInicial;
+    private ControladorPrincipal controladorPrincipal;
     
     public ControladorRelatorio(){
         this.telaRelatorio = new TelaRelatorio(this);    
@@ -36,11 +35,11 @@ public class ControladorRelatorio {
 
     public void sair() {
         telaRelatorio.setVisible(false);
-        controladorInicial.abrirTela();
+        controladorPrincipal.abrirTela();
     }
     
     public void setControladorInicial(ControladorPrincipal controladorInicial){
-        this.controladorInicial = controladorInicial;
+        this.controladorPrincipal = controladorInicial;
     }
     
     public void setControladorEstabelecimento(ControladorEstabelecimento controladorEstabelecimento){

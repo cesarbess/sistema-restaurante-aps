@@ -110,4 +110,8 @@ public class ItemCardapio implements Serializable {
             }
         }
     }
+    
+    public void cancelar(){
+        this.setStatus(StatusItem.CANCELADO);
+    }
 }

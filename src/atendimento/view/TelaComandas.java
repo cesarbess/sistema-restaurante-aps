@@ -5,6 +5,8 @@ import atendimento.controller.ControladorComandas;
 import gerencia.model.TipoPerfil;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 public class TelaComandas extends javax.swing.JFrame {
     
@@ -218,6 +220,7 @@ public class TelaComandas extends javax.swing.JFrame {
                 Integer numeroMesaSelecionada = getIdComandaSelecionada();
                 if(owner.comandaPossuiItemQueExigePreparo(numeroMesaSelecionada)){
                     if (owner.enviarComandaACozinha(numeroMesaSelecionada)){
+                      trocarStatusBtn.setEnabled(true);
                       JOptionPane.showMessageDialog(rootPane, "Os itens pendentes da comanda foram enviados a cozinha");
                     } else {
                       JOptionPane.showMessageDialog(rootPane, "A comanda não tem nenhum item pendente a ser enviado a cozinha");
@@ -256,6 +259,21 @@ public class TelaComandas extends javax.swing.JFrame {
 
     public void setarModeloLista(DefaultListModel model){
         this.listaComandas.setModel(model);
+        listaComandas.addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent evt) {
+            if (!evt.getValueIsAdjusting()) {
+                if (listaComandas.getSelectedValue() != null){
+                    boolean habilitarTrocaStatus = owner.comandaFoiEnviadaACozinha(getIdComandaSelecionada());
+                    if(habilitarTrocaStatus) {
+                        trocarStatusBtn.setEnabled(true);
+                    } else {
+                        trocarStatusBtn.setEnabled(false);
+                    }
+                }
+            }
+        }
+        });
     }
     
     public Integer getIdComandaSelecionada(){

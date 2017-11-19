@@ -197,7 +197,7 @@ public class ControladorComandas {
                 if(item.getStatus() == StatusItem.ENTREGUE){
                     return false;
                 }
-                item.setStatus(StatusItem.CANCELADO);
+                item.cancelar();
                 String proximoStatus = item.getProximoStatus();
                 controladorPrincipal.salvarNoDisco();
                 telaStatusItens.atualizarTelaParaStatus(item.getDescricaoStatus(), proximoStatus);
@@ -209,6 +209,11 @@ public class ControladorComandas {
 
     public boolean ehGarcom() {
         return Estabelecimento.getInstance().getPerfilEmUso() == TipoPerfil.GARCOM;
+    }
+
+    public boolean comandaFoiEnviadaACozinha(Integer idComandaSelecionada) {
+        Comanda comanda = Estabelecimento.getInstance().getMesaCom(idComandaSelecionada).getComanda();
+        return comanda.jaFoiEnviadaACozinha();
     }
 }
 

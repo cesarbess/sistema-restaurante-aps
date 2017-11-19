@@ -62,4 +62,13 @@ public class Comanda implements Serializable {
          }
          return true;
     }
+
+    public boolean jaFoiEnviadaACozinha() {
+        for(ItemCardapio item : this.itensPedido){
+            if(item.getStatus() == null){
+                return false;
+            }
+        }
+        return true;
+    }
 }
