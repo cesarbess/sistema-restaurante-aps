@@ -162,10 +162,11 @@ public class ControladorMesas {
         for(String item : listaItensComanda){
             for(ItemCardapio itemCardapio : Estabelecimento.getInstance().getCardapio().getItens()){
                 if(item.contains(itemCardapio.getDescricao())){
-                    if(!itemCardapio.isExigePreparo()){
-                        itemCardapio.setStatus(StatusItem.PRONTO);
+                    ItemCardapio itemComanda = new ItemCardapio(itemCardapio);
+                    if(!itemComanda.isExigePreparo()){
+                        itemComanda.setStatus(StatusItem.PRONTO);
                     }
-                    novaComanda.adicionarItemNaComanda(itemCardapio);
+                    novaComanda.adicionarItemNaComanda(itemComanda);
                 }
             }
         }

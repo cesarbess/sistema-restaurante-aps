@@ -14,6 +14,12 @@ public class ItemCardapio implements Serializable {
         this.exigePreparo = exigePreparo;
         this.status = status;
     }
+    
+    public ItemCardapio(ItemCardapio copia){
+        this.descricao = copia.descricao;
+        this.exigePreparo = copia.exigePreparo;
+        this.status = copia.status;
+    }
 
     public String getDescricao() {
         return descricao;
