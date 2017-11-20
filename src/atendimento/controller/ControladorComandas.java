@@ -98,7 +98,6 @@ public class ControladorComandas {
             if(item.getStatus() == null){
                 item.setStatus(StatusItem.EM_ESPERA);
                 tinhaItensPendentes = true;
-                System.out.println("Alterado o status do item: " + item.getDescricao() + " para " + item.getStatus());
             }
         }
         if (tinhaItensPendentes) {

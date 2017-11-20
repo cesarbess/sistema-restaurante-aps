@@ -72,38 +72,34 @@ public class ControladorMesas {
     }
 
     public boolean ocuparMesa(int idMesa) {
-        for(Mesa mesa : Estabelecimento.getInstance().getMesas()){
-           if(mesa.getId().equals(idMesa) && mesa.isEstaLivre()){
-               mesa.setEstaLivre(false);
-               controladorPrincipal.salvarNoDisco();
-               return true;
-           } else if (mesa.getId().equals(idMesa) && !mesa.isEstaLivre()){
-               return false;
-           }
+        Mesa mesaOcupar = Estabelecimento.getInstance().getMesaCom(idMesa);
+        if(mesaOcupar.isEstaLivre()) {
+            mesaOcupar.setEstaLivre(false);
+            controladorPrincipal.salvarNoDisco();
+            return true;
+        } else {
+            return false;
         }
-        return false;
     }
 
     public boolean liberarMesa(int idMesa) {
-        for(Mesa mesa : Estabelecimento.getInstance().getMesas()){
-           if(mesa.getId().equals(idMesa) && !mesa.isEstaLivre()){
-               if (mesa.getComanda() != null && mesa.possuiComandaAtivaNaCozinha()){
-                   return false;
-               } else if(mesa.getComanda() != null && !mesa.possuiComandaAtivaNaCozinha()){
-                   mesa.setComanda(null);
-                   mesa.setEstaLivre(true);
+        Mesa mesaLiberar = Estabelecimento.getInstance().getMesaCom(idMesa);
+        if(!mesaLiberar.isEstaLivre()){
+            if(mesaLiberar.getComanda() != null && mesaLiberar.possuiComandaAtivaNaCozinha()) {
+                return false;
+            } else if(mesaLiberar.getComanda() != null && !mesaLiberar.possuiComandaAtivaNaCozinha()){
+                mesaLiberar.setComanda(null);
+                mesaLiberar.setEstaLivre(true);
+                controladorPrincipal.salvarNoDisco();
+                return true;
+            } else {
+                   mesaLiberar.setEstaLivre(true);
                    controladorPrincipal.salvarNoDisco();
                    return true;
-               } else {
-                   mesa.setEstaLivre(true);
-                   controladorPrincipal.salvarNoDisco();
-                   return true;
-               }
-           } else if (mesa.getId().equals(idMesa) && mesa.isEstaLivre()){
-               return false;
-           }
+            }
+        } else {
+            return false;
         }
-        return false;
     }
 
     public void abrirTelaCriarComanda() {
