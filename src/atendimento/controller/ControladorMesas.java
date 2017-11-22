@@ -72,9 +72,9 @@ public class ControladorMesas {
     }
 
     public boolean ocuparMesa(int idMesa) {
-        Mesa mesaOcupar = Estabelecimento.getInstance().getMesaCom(idMesa);
-        if(mesaOcupar.isEstaLivre()) {
-            mesaOcupar.setEstaLivre(false);
+        Mesa mesa = Estabelecimento.getInstance().getMesaCom(idMesa);
+        if(mesa.isEstaLivre()) {
+            mesa.setEstaLivre(false);
             controladorPrincipal.salvarNoDisco();
             return true;
         } else {
@@ -83,17 +83,17 @@ public class ControladorMesas {
     }
 
     public boolean liberarMesa(int idMesa) {
-        Mesa mesaLiberar = Estabelecimento.getInstance().getMesaCom(idMesa);
-        if(!mesaLiberar.isEstaLivre()){
-            if(mesaLiberar.getComanda() != null && mesaLiberar.possuiComandaAtivaNaCozinha()) {
+        Mesa mesa = Estabelecimento.getInstance().getMesaCom(idMesa);
+        if(!mesa.isEstaLivre()){
+            if(mesa.getComanda() != null && mesa.possuiComandaAtivaNaCozinha()) {
                 return false;
-            } else if(mesaLiberar.getComanda() != null && !mesaLiberar.possuiComandaAtivaNaCozinha()){
-                mesaLiberar.setComanda(null);
-                mesaLiberar.setEstaLivre(true);
+            } else if(mesa.getComanda() != null && !mesa.possuiComandaAtivaNaCozinha()){
+                mesa.setComanda(null);
+                mesa.setEstaLivre(true);
                 controladorPrincipal.salvarNoDisco();
                 return true;
             } else {
-                   mesaLiberar.setEstaLivre(true);
+                   mesa.setEstaLivre(true);
                    controladorPrincipal.salvarNoDisco();
                    return true;
             }
@@ -176,11 +176,10 @@ public class ControladorMesas {
 
     public boolean mesaPossuiComanda(Integer idMesaSelecionada) {
         Mesa mesa = Estabelecimento.getInstance().getMesaCom(idMesaSelecionada);
-        return mesa.getComanda() != null;
+        return mesa.possuiComanda();
     }
 
     public void cancelarComanda(Integer idMesaSelecionada) {
-        //PRECISA CHECAR SE A COMANDA POSSUI ITENS ATIVO NA COZINHA
         Mesa mesa = Estabelecimento.getInstance().getMesaCom(idMesaSelecionada);
         mesa.setComanda(null);
         mesa.setEstaLivre(true);

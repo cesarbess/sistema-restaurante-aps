@@ -41,6 +41,10 @@ public class Mesa implements Serializable {
     public void setId(Integer id) {
         this.id = id;
     }
+    
+    public boolean possuiComanda(){
+        return this.comanda != null;
+    }
 
     public boolean possuiComandaAtivaNaCozinha() {
         return this.comanda.possuiItemAtivoNaCozinha();
