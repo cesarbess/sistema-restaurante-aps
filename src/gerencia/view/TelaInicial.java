@@ -88,6 +88,8 @@ public class TelaInicial extends javax.swing.JFrame {
 
     private void gerenciaBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gerenciaBtnActionPerformed
         String senhaDigitada = JOptionPane.showInputDialog("Digite a senha do Administrador: ");
+        if(senhaDigitada == null){ return; }
+        
         if (senhaDigitada.equals(owner.senha)){
             owner.entrarTelaGerencia();
         } else {
