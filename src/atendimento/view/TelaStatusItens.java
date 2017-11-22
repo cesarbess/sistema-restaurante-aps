@@ -141,7 +141,7 @@ public class TelaStatusItens extends javax.swing.JFrame {
         if(listaItens.isSelectionEmpty()){
             JOptionPane.showMessageDialog(rootPane, "Selecione um item primeiro");
         } else {
-            boolean sucesso = owner.cancelarItem(listaItens.getSelectedValue(), idMesa);
+            boolean sucesso = owner.cancelarItem(listaItens.getSelectedIndex(), idMesa);
             if (!sucesso) {
                 JOptionPane.showMessageDialog(rootPane, "Este item já foi entregue e não pode ser cancelado");
             }

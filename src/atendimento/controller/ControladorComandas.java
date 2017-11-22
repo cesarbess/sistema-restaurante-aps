@@ -178,22 +178,18 @@ public class ControladorComandas {
         telaStatusItens.atualizarTelaParaStatus(item.getDescricaoStatus(), proximoStatus);
     }
 
-    public boolean cancelarItem(String itemSelecionado, Integer idMesa) {
+    public boolean cancelarItem(int itemSelecionado, Integer idMesa) {
         Mesa mesa = Estabelecimento.getInstance().getMesaCom(idMesa);
         Comanda comanda = mesa.getComanda();
-        for(ItemCardapio item : comanda.getItensPedido()){
-            if(item.getDescricao().equals(itemSelecionado)){
-                if(item.getStatus() == StatusItem.ENTREGUE){
-                    return false;
-                }
-                item.cancelar();
-                String proximoStatus = item.getProximoStatus();
-                controladorPrincipal.salvarNoDisco();
-                telaStatusItens.atualizarTelaParaStatus(item.getDescricaoStatus(), proximoStatus);
-                return true;
-            }
+        ItemCardapio item = comanda.getItensPedido().get(itemSelecionado);
+        if(item.getStatus() == StatusItem.ENTREGUE){
+            return false;
         }
-        return false;
+        item.cancelar();
+        String proximoStatus = item.getProximoStatus();
+        controladorPrincipal.salvarNoDisco();
+        telaStatusItens.atualizarTelaParaStatus(item.getDescricaoStatus(), proximoStatus);
+        return true;
     }
 
     public boolean ehGarcom() {
