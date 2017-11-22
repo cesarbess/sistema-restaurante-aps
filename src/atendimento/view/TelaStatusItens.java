@@ -133,7 +133,7 @@ public class TelaStatusItens extends javax.swing.JFrame {
         if(listaItens.isSelectionEmpty()){
             JOptionPane.showMessageDialog(rootPane, "Selecione um item primeiro");
         } else {
-            owner.avancarStatusItem(listaItens.getSelectedValue(), idMesa);
+            owner.avancarStatusItem(listaItens.getSelectedIndex(), idMesa);
         }
     }//GEN-LAST:event_btnAvancarStatusActionPerformed
 
@@ -177,7 +177,7 @@ public class TelaStatusItens extends javax.swing.JFrame {
             public void valueChanged(ListSelectionEvent evt) {
             if (!evt.getValueIsAdjusting()) {
                 if (listaItens.getSelectedValue() != null){
-                    owner.atualizarTelaParaItem(listaItens.getSelectedValue(), idMesa);
+                    owner.atualizarTelaParaItem(listaItens.getSelectedIndex(), idMesa);
                 }
             }
         }

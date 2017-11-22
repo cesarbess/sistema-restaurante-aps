@@ -149,43 +149,33 @@ public class ControladorComandas {
         telaStatusItens.setVisible(true);
     }
 
-    public void atualizarTelaParaItem(String nome, Integer idMesa) {
+    public void atualizarTelaParaItem(int id, Integer idMesa) {
         Mesa mesa = Estabelecimento.getInstance().getMesaCom(idMesa);
         Comanda comanda = mesa.getComanda();
-        ItemCardapio item;
-        for(ItemCardapio i : comanda.getItensPedido()){
-            if(i.getDescricao().contains(nome)){
-                item = i;
-                String proximoStatus = item.getProximoStatus();
-                telaStatusItens.atualizarTelaParaStatus(item.getDescricaoStatus(), proximoStatus);
-                controladorPrincipal.salvarNoDisco();
-                break;
-            }
-        }
+        ItemCardapio item = comanda.getItensPedido().get(id);
+        String proximoStatus = item.getProximoStatus();
+        telaStatusItens.atualizarTelaParaStatus(item.getDescricaoStatus(), proximoStatus);
+        controladorPrincipal.salvarNoDisco();
     }
 
-    public void avancarStatusItem(String itemSelecionado, Integer idMesa) {
+    public void avancarStatusItem(int itemSelecionado, Integer idMesa) {
         Mesa mesa = Estabelecimento.getInstance().getMesaCom(idMesa);
         Comanda comanda = mesa.getComanda();
-        for(ItemCardapio item : comanda.getItensPedido()){
-            if(item.getDescricao().equals(itemSelecionado)){
-                String proximo = item.getProximoStatus();
-                if(proximo.equals("Em preparo") || proximo.equals("Pronto")) {
-                    if(ehGarcom()){
-                        telaStatusItens.mostrarAvisoParaPerfilInvalido(Estabelecimento.getInstance().getPerfilEmUso(), proximo);
-                        break;
-                    }
-                } else if(proximo.equals("Entregue") && !ehGarcom()) {
-                    telaStatusItens.mostrarAvisoParaPerfilInvalido(Estabelecimento.getInstance().getPerfilEmUso(), proximo);
-                    break;
-                }
-                item.avancarStatus();
-                String proximoStatus = item.getProximoStatus();
-                controladorPrincipal.salvarNoDisco();
-                telaStatusItens.atualizarTelaParaStatus(item.getDescricaoStatus(), proximoStatus);
-                break;
+        ItemCardapio item = comanda.getItensPedido().get(itemSelecionado);
+        String proximo = item.getProximoStatus();
+        if(proximo.equals("Em preparo") || proximo.equals("Pronto")) {
+            if(ehGarcom()){
+                telaStatusItens.mostrarAvisoParaPerfilInvalido(Estabelecimento.getInstance().getPerfilEmUso(), proximo);
+                return;
             }
+        } else if(proximo.equals("Entregue") && !ehGarcom()) {
+            telaStatusItens.mostrarAvisoParaPerfilInvalido(Estabelecimento.getInstance().getPerfilEmUso(), proximo);
+            return;
         }
+        item.avancarStatus();
+        String proximoStatus = item.getProximoStatus();
+        controladorPrincipal.salvarNoDisco();
+        telaStatusItens.atualizarTelaParaStatus(item.getDescricaoStatus(), proximoStatus);
     }
 
     public boolean cancelarItem(String itemSelecionado, Integer idMesa) {
