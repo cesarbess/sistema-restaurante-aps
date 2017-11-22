@@ -278,7 +278,11 @@ public class TelaComandas extends javax.swing.JFrame {
     
     public Integer getIdComandaSelecionada(){
         String comandaSelecionada = listaComandas.getSelectedValue();
-        return Integer.parseInt(comandaSelecionada.substring(comandaSelecionada.length() -1));
+        if(comandaSelecionada.length()==18) {
+            return Integer.parseInt(comandaSelecionada.substring(comandaSelecionada.length() -1));
+        } else {
+            return Integer.parseInt(comandaSelecionada.substring(comandaSelecionada.length() -2));
+        }
     }
     
     public void configurarTelaParaPerfil(TipoPerfil perfilEmUso) {

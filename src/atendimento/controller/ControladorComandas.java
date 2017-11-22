@@ -212,6 +212,7 @@ public class ControladorComandas {
 
     public boolean comandaFoiEnviadaACozinha(Integer idComandaSelecionada) {
         Comanda comanda = Estabelecimento.getInstance().getMesaCom(idComandaSelecionada).getComanda();
+        
         return comanda.jaFoiEnviadaACozinha();
     }
 }
